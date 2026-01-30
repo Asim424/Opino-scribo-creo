@@ -34,11 +34,12 @@ func instantiate_room(room):
 				row.append(Door)
 			
 			elif cell == 2:
-				pass
-				
+				var Treasure = treasure.new()
+				Treasure.set_inside()
+				row.append(Treasure)
 			elif cell == 3:
 				var Breakable = breakable.new()
-				
+				row.append(Breakable)
 				
 			elif cell == 4:
 				var Spike = spike.new()
@@ -49,7 +50,9 @@ func instantiate_room(room):
 				pass
 				
 			elif cell == 6:
-				pass
+				var Shop = shop.new()
+				Shop.set_inside()
+				row.append(Shop)
 			else:
 				row.append(cell)
 		out.append(row)
