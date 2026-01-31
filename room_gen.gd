@@ -47,7 +47,8 @@ func instantiate_room(room):
 				row.append(Spike)
 				
 			elif cell == 5:
-				pass
+				var Shopkeeper = shopkeeper.new()
+				row.append(Shopkeeper)
 				
 			elif cell == 6:
 				var Shop = shop.new()
@@ -75,7 +76,7 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 					return body
 			
 		2: #shop
-			var body = shop.duplicate(true)
+			var body = shop_room.duplicate(true)
 			if sides.has("E"):
 				body[8][16] = 1
 			if sides.has("W"):
@@ -250,7 +251,7 @@ var treasure_rooms = [
 [W,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,W],
 [W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W],2.1],
 ]
-var shop = [
+var shop_room = [
 [W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W],
 [W,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,W],
 [W,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,W],
