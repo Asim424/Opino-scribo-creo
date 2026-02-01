@@ -34,12 +34,11 @@ func instantiate_room(room):
 				row.append(Door)
 			
 			elif cell == 2:
-				var Treasure = treasure.new()
-				Treasure.set_inside()
-				row.append(Treasure)
+				pass
+				
 			elif cell == 3:
 				var Breakable = breakable.new()
-				row.append(Breakable)
+				
 				
 			elif cell == 4:
 				var Spike = spike.new()
@@ -47,13 +46,10 @@ func instantiate_room(room):
 				row.append(Spike)
 				
 			elif cell == 5:
-				var Shopkeeper = shopkeeper.new()
-				row.append(Shopkeeper)
+				pass
 				
 			elif cell == 6:
-				var Shop = shop.new()
-				Shop.set_inside()
-				row.append(Shop)
+				pass
 			else:
 				row.append(cell)
 		out.append(row)
@@ -76,7 +72,7 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 					return body
 			
 		2: #shop
-			var body = shop_room.duplicate(true)
+			var body = shop.duplicate(true)
 			if sides.has("E"):
 				body[8][16] = 1
 			if sides.has("W"):
@@ -251,7 +247,7 @@ var treasure_rooms = [
 [W,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,W],
 [W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W],2.1],
 ]
-var shop_room = [
+var shop = [
 [W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W],
 [W,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,W],
 [W,S,S,S,S,S,S,S,S,S,S,S,S,S,S,S,W],
