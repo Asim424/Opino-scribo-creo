@@ -15,6 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Opino scribo creo"
+run/main_scene="uid://d1ehsbw1rf8bx"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
 

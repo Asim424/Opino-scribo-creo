@@ -6,9 +6,11 @@ var M := Basic_types.new()
 var F := Basic_types.new()
 var U := Basic_types.new()
 var rng = RandomNumberGenerator.new()
-
+var body = []
 #IDs: 1 = door 2 = treasure 3 = breakable 4 = spike 5 = shopkeep 6 = shop item
 #top left coord = [0,0], [x,y]
+func get_room():
+	return body
 func add_detail(body):
 	var details = ["#","*","+","_","-","\""] #list of details to randomly place on floor tiles
 	for y in range(3):
@@ -69,14 +71,14 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 			for i in range(len(treasure_rooms)):
 				temp = temp - treasure_rooms[i][-1]
 				if temp <= 0:
-					var body = treasure_rooms[i].duplicate(true)
+					body = treasure_rooms[i].duplicate(true)
 					instantiate_room(body)
 					add_detail(body)
 					body.pop_back()
 					return body
 			
 		2: #shop
-			var body = shop_room.duplicate(true)
+			body = shop_room.duplicate(true)
 			if sides.has("E"):
 				body[8][16] = 1
 			if sides.has("W"):
@@ -90,7 +92,7 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 			body.pop_back()
 			return body
 		3: #empty 1X1
-			var body = empty_room.duplicate(true)
+			body = empty_room.duplicate(true)
 			if sides.has("E"):
 				body[8][16] = 1
 			if sides.has("W"):
