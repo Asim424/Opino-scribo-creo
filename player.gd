@@ -1,4 +1,5 @@
 extends Control
+class_name player
 var HP = 10
 var max_HP = 10
 var room_position = [0,0]

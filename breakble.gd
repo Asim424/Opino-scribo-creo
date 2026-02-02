@@ -11,6 +11,9 @@ var broken =  [["░","▒"," ","▒","▒"," "], # breakable wall
 var is_broken = false
 var has_coin = false
 
+func get_body():
+	return body
+
 func make_coin():
 	has_coin = true
 

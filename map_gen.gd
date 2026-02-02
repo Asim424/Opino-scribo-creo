@@ -6,11 +6,11 @@ var rng = RandomNumberGenerator.new()
 #make the start and end rooms, and a line between them
 #add x rooms to the sides of the path
 var floor_num = 1
-var special_rooms_left = [5,1,2]
 var total_rooms = 9 + floor(floor_num* 10/3)
 var map = [['']]
 var start_loc
 var treasure_loc = []
+var shop_loc = [-1,-1]
 var room_generator = room_gen.new()
 
 func get_map():
@@ -21,7 +21,8 @@ func generate_map():
 	var last_location = [0,0]
 	while total_rooms > 0:
 		total_rooms -= 1
-		match rng.randi_range(0,3):
+		var random = rng.randi_range(0,3)
+		match random:
 			0:
 				if last_location[1]-1 >= 0:
 					if not map[last_location[1]-1][last_location[0]] is Array:
@@ -33,7 +34,7 @@ func generate_map():
 					var temp = []
 					temp.resize(len(map[0]))
 					temp.fill(" ")
-					map.append(temp)
+					map.insert(0,temp)
 					map[0][last_location[0]] = []
 					last_location[1] = 0
 			1:
@@ -45,20 +46,25 @@ func generate_map():
 						total_rooms += 1
 				else:
 					var temp = []
-					temp.resize(len(map[0]))
+					temp.resize(len(map[last_location[1]]))
 					temp.fill(" ")
-					map.insert(-1,temp)
-					map[0][last_location[0]] = []
+					temp[last_location[0]] = []
+					map.append(temp)
 					last_location[1] += 1
 					
 			2:
 				if last_location[0]+1 < len(map[last_location[1]]):
 					if not map[last_location[1]][last_location[0]+1] is Array:
 						map[last_location[1]][last_location[0]+1] = []
+						last_location[0] += 1
 					else:
 						total_rooms += 1
 				else:
-					map[last_location[1]].insert(-1,[])
+					for i in range(map.size()):
+						map[i].append(" ")
+					map[last_location[1]][last_location[0]+1] = []
+					last_location[0]+=1
+					
 					
 			3:
 				if last_location[0]-1 >= 0:
@@ -68,53 +74,89 @@ func generate_map():
 					else:
 						total_rooms += 1
 				else:
-					map[0].append([])
-					last_location[0] = 0
+					for i in range(map.size()):
+						map[i].insert(0," ")
+					map[last_location[1]][last_location[0]] = []
 					
+				
+		
 			
 		pass
 
 	#add a treasure room
-	for x in range(len(map[-1])):
-		if 1 in special_rooms_left:
-			var temp = room_generator.gen_room(1,[])
-			map[-1][x] = temp.duplicate(true)
-			treasure_loc = [len(map),x]
-			special_rooms_left.erase(1)
+	for x in range(len(map[-1])-1,0,-1):
+		if map[-1][x] is Array:
+			var temp = []
+			temp.resize(x+1)
+			temp.fill(" ")
+			temp[-1] = room_generator.gen_room(1,[])
+			map.append(temp)
+			treasure_loc = [len(map)-1,x]
+			#print(x)
+			#var semi = ""
+			#for temp1 in range(map.size()): # Grid Row (0 to 2)
+				#for temp2 in range(map[temp1].size()): # Tile Row (0 to 2)
+					#if temp1 == len(map)-1 and temp2 == x:
+						#semi += "T"
+					#elif map[temp1][temp2] is Array:
+						#semi += "R"
+					#else:
+						#semi += " "
+				#semi += "\n"
+			#print(semi)
 			
 	#add a shop
-	while 2 in special_rooms_left:
-		for i in range(len(map)):
-			for j in range(len(map[i])):
-				var entrances = []
-				if  rng.randi_range(1,10) == 1:
-					if j-1 >= 0:
-						if map[i][j-1] is Array and [i,j] != treasure_loc:
-							entrances.append("W")
-					if j+1 < len(map[i]):
-						if map[i][j+1] is Array and [i,j] != treasure_loc:
-							entrances.append("E")
-					special_rooms_left.erase(2)
 	
-				
+	var sides = randi_range(1,3)
+	var entrances = []
+	var longest = [0,0]
+	var potential = 0
 	for i in range(len(map)):
 		for j in range(len(map[i])):
-			var entrances = []
+			if map[i][j] is Array:
+				potential += 1
+		if potential > longest[1]:
+			longest[0] = i
+			longest[1] = potential
+		potential = 0
+	print(longest[0])
+	
+	for i in range(1,len(map[longest[0]])-1):
+		if map[longest[0]][i] is Array:
+			if map[longest[0]][i+1] is Array:
+				entrances.append("E")
+			if map[longest[0]][i-1] is Array:
+				entrances.append("W")
+			if randi_range(0,10) < 3:
+				map[longest[0]][i] = room_generator.gen_room(2,entrances)
+				shop_loc = [longest[0],i]
+				print(str(longest[0])+" " +str(i))
+				break
+			entrances = []
+			
+	if shop_loc == [-1,-1]:
+		map[longest[0]].append(" ")
+		map[longest[0]][-1] = room_generator.gen_room(2,["W"])
+		shop_loc = [longest[0],map[longest[0]].size()-1]
+		
+	for i in range(len(map)):
+		for j in range(len(map[i])):
+			entrances = []
 			if i-1 >= 0:
 				if j < len(map[i-1]):
 					if map[i-1][j] is Array:
 						entrances.append("N")
 			if i+1 < len(map):
 				if j < len(map[i+1]):
-					if map[i+1][j] is Array and [i,j] != treasure_loc:
+					if map[i+1][j] is Array:
 						entrances.append("S")
 			if j-1 >= 0:
-				if map[i][j-1] is Array and [i,j] != treasure_loc:
+				if map[i][j-1] is Array:
 					entrances.append("W")
 			if j+1 < len(map[i]):
-				if map[i][j+1] is Array and [i,j] != treasure_loc:
+				if map[i][j+1] is Array:
 					entrances.append("E")
-			if map[i][j] is Array:
+			if map[i][j] is Array and [i,j] != treasure_loc and [i,j] != shop_loc:
 				map[i][j] = room_generator.gen_room(3,entrances).duplicate(true)
 
 

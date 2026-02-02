@@ -7,6 +7,10 @@ var L = "a"
 var body = [["▓","▓","▓","▓","▓","▓"], #item for sale
 	 ["▓","▓", L , L ,"▓","▓"], # shop gives you a choice of one of two items
 	 ["▓","▓","▓","▓","▓","▓"]] #dynamically replace bottom row with price
+
+func get_body():
+	return body
+
 func set_inside():
 	L = contents.get_letter()
 	if L in  ["j","k","q","x","z"," "]:

@@ -6,7 +6,10 @@ var body = [["▓","░","▒","░","░","▒"], #door
 var map_coordinates = [1,1]
 var room_cordinates = [1,1]
 var direction_exit = ["N"] #"S","E","W"
+
 # Called when the node enters the scene tree for the first time.
+func get_body():
+	return body
 func set_room_coords(coord : Array):
 	room_cordinates = coord.duplicate(true)
 	if room_cordinates[1] == 0:

@@ -4,11 +4,15 @@ var body = [["█","▒","█","█","▒","█"], #treasure
 	 ["█","▒","┴","┴","▒","█"],
 	 ["▀","▀","▀","▀","▀","▀"]]
 
-var contents := rand_letter.new()
+var random_letter := rand_letter.new()
+var contents = ""
+
+func get_body():
+	return body
 
 func set_inside():
-	contents = contents.get_letter()
-	
+	contents = random_letter.get_letter()
+
 
 func open():
 	pass

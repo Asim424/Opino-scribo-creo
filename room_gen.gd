@@ -77,14 +77,10 @@ func instantiate_room(room):
 						var Shop = shop.new()
 						Shop.set_inside()
 						row.append(Shop)
-					
 				else:
-					if cell == W:
-						row.append(W.copy())
-					elif cell == F:
-						row.append(F.copy())
+					row.append(cell)
 			out.append(row)
-		return out
+	return out
 
 func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 	#when doing shop, sides has to be either ["E"], ["W"] or ["E","W"]
@@ -103,7 +99,7 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 								if temp2[y][x] is Basic_types:
 									temp2[y][x] = temp2[y][x].copy()
 					body = temp2
-					instantiate_room(body)
+					body = instantiate_room(body)
 					add_detail(body)
 					return body
 			return "hahaha"
@@ -118,14 +114,10 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 							temp2[y][x] = temp2[y][x].copy()
 			body = temp2
 			if sides.has("E"):
-				body[8][16] = 1
+				body[7][16] = 1
 			if sides.has("W"):
-				body[8][0] = 1
-			if sides.has("N"):
-				body[0][8] = 1
-			if sides.has("S"):
-				body[14][8] = 1
-			instantiate_room(body)
+				body[7][0] = 1
+			body = instantiate_room(body)
 			add_detail(body)
 			return body
 		3: #empty 1X1
@@ -137,14 +129,14 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 							temp2[y][x] = temp2[y][x].copy()
 			body = temp2
 			if sides.has("E"):
-				body[8][16] = 1
+				body[7][16] = 1
 			if sides.has("W"):
-				body[8][0] = 1
+				body[7][0] = 1
 			if sides.has("N"):
 				body[0][8] = 1
 			if sides.has("S"):
 				body[14][8] = 1
-			instantiate_room(body)
+			body = instantiate_room(body)
 			add_detail(body)
 			return body
 		4: #empty 2x2

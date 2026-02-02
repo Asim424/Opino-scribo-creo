@@ -4,7 +4,7 @@ class_name printer
 var map_generator = map_gen.new()
 var map
 var room_generator = room_gen.new()
-
+var Player = player.new()
 func room_to_ascii(room) -> String:
 	if typeof(room) == TYPE_STRING:
 		return room  # Already ASCII
@@ -58,41 +58,22 @@ func room_to_ascii(room) -> String:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var room = room_generator.gen_room(3,[])
 	map_generator.generate_map()
 	map = map_generator.map.duplicate(true)
-	var i = 0
-	var m = 0
-	#for i in range(map.size()): # Grid Row (0 to 2)
-		#for m in range(map[i].size()): # Tile Row (0 to 2)
-	var current_line = ""
-	var output_text = room_to_ascii(room)
-	#if room is not String:
-		#var tile_height = room[0][0].get_body().size()  # Usually 3 rows per tile
-		#var tile_width = room[0][0].get_body()[0].size()  # Usually 6 columns per tile
-#
-	#for j in range(room.size()):  # Room row (vertical)
-		## For each row inside the tiles
-		#for l in range(tile_height):
-			#current_line = ""
-			#for n in range(room[j].size()):  # Room column (horizontal)
-				#var tile = room[j][n]
-				#if not tile is int:
-					## Append the corresponding row of the tile
-					#current_line += "".join(str(c) for c in tile.get_body()[l])
-				#else:
-					#current_line += "LLL"  # Placeholder for int tiles
-			#output_text += current_line + "\n"
-
-	#for room in map[0][0]:
-		#for tile_row in room:
-			#for y in range(3):
-				#for tile in tile_row:
-					#for x in range(6):
-						#current_line += tile[y][x]
-				#output_text += current_line + "\n"
-				
-	self.text = output_text
+	var semi = ""
+	
+	for i in range(map.size()): # Grid Row (0 to 2)
+		for j in range(map[i].size()): # Tile Row (0 to 2)
+			var output_text = room_to_ascii(map[i][j])
+			if output_text != " ":
+				semi += "R"
+				self.text = output_text
+				await get_tree().create_timer(1.0).timeout
+			else:
+				semi += " "
+			#print(j)
+		semi += "\n"
+	print(semi)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
