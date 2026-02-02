@@ -24,6 +24,10 @@ static var broken_wall =  [["░","▒"," ","▒","▒"," "], # broken wall
 			   [" ","▒","▒"," ","▒","░"]]
 
 var body = [[]]
+
+func get_body():
+	return body
+
 func set_body(choice):
 	match choice:
 		1: body = Unpassable.duplicate(true)
@@ -37,7 +41,10 @@ func set_body(choice):
 func _ready() -> void:
 	pass # Replace with function body.
 
-
+func copy():
+	var temp = Basic_types.new()
+	temp.body = body.duplicate(true)
+	return temp
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

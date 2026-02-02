@@ -7,59 +7,84 @@ var F := Basic_types.new()
 var U := Basic_types.new()
 var rng = RandomNumberGenerator.new()
 var body = []
+
+func grab_tile(position:Array, direction:String):
+	match direction:
+		"N":
+			if position[1] > 0:
+				return body[position[1]-1][position[0]]
+		"S":
+			if position[1] < len(body):
+				return body[position[1]+1][position[0]]
+		"E":
+			if position[0] > 0:
+				return body[position[1]][position[0]-1]
+		"W":
+			if position[0] < len(body[0]):
+				return body[position[1]][position[0]+1]
+	return -1
 #IDs: 1 = door 2 = treasure 3 = breakable 4 = spike 5 = shopkeep 6 = shop item
 #top left coord = [0,0], [x,y]
 func get_room():
 	return body
+
 func add_detail(body):
 	var details = ["#","*","+","_","-","\""] #list of details to randomly place on floor tiles
-	for y in range(3):
-		for x in range(6):
-			if body[y][x] == " " and rng.randi_range(1, 100) <= 4:
-				body[y][x] = details.pick_random()
+	for tile_row in body:
+		for tile in tile_row:
+			for y in range(3):
+				for x in range(6):
+					if tile is Basic_types:
+						if tile.get_body()[y][x] == " " and rng.randi_range(1, 100) <= 4:
+							tile.get_body()[y][x] = details.pick_random()
 
 func instantiate_room(room):
 	var out = []
 	for y in range(room.size()):
 		var row = []
-		for x in range(room[y].size()):
-			var cell = room[y][x]
+		if room[y] is Array:
+			for x in range(room[y].size()):
+				var cell = room[y][x]
+				if cell is int:
+					if cell == 1:
+						var Door = door.new()
+						
+						# Example destination logic
+						#var next_room = pick_next_room_id(current_room_id) #do this in map_gen
+						var spawn = [x,y]
 
-			if cell == 1:
-				var Door = door.new()
-				
-				# Example destination logic
-				#var next_room = pick_next_room_id(current_room_id) #do this in map_gen
-				var spawn = [x,y]
-
-				Door.set_room_coords(spawn)
-				row.append(Door)
-			
-			elif cell == 2:
-				var Treasure = treasure.new()
-				Treasure.set_inside()
-				row.append(Treasure)
-			elif cell == 3:
-				var Breakable = breakable.new()
-				row.append(Breakable)
-				
-			elif cell == 4:
-				var Spike = spike.new()
-				#set damage in map_gen, damage is based on floor
-				row.append(Spike)
-				
-			elif cell == 5:
-				var Shopkeeper = shopkeeper.new()
-				row.append(Shopkeeper)
-				
-			elif cell == 6:
-				var Shop = shop.new()
-				Shop.set_inside()
-				row.append(Shop)
-			else:
-				row.append(cell)
-		out.append(row)
-	return out
+						Door.set_room_coords(spawn)
+						row.append(Door)
+					
+					elif cell == 2:
+						var Treasure = treasure.new()
+						Treasure.set_inside()
+						row.append(Treasure)
+					elif cell == 3:
+						var Breakable = breakable.new()
+						row.append(Breakable)
+						
+					elif cell == 4:
+						var Spike = spike.new()
+						#set damage in map_gen, damage is based on floor
+						row.append(Spike)
+						
+					elif cell == 5:
+						var Shopkeeper = shopkeeper.new()
+						row.append(Shopkeeper)
+						
+					elif cell == 6:
+						var Shop = shop.new()
+						Shop.set_inside()
+						row.append(Shop)
+					
+				else:
+					if cell == W:
+						row.append(W.copy())
+					elif cell == F:
+						row.append(F.copy())
+			out.append(row)
+		return out
 
 func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 	#when doing shop, sides has to be either ["E"], ["W"] or ["E","W"]
@@ -67,18 +92,31 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 	#first letter is the wall, 2nd is where on the wall
 	match choice:
 		1: #treasure
-			var temp = rng.randi_range(1,43)
+			var temp = rng.randi_range(1,42)
 			for i in range(len(treasure_rooms)):
 				temp = temp - treasure_rooms[i][-1]
 				if temp <= 0:
-					body = treasure_rooms[i].duplicate(true)
+					var temp2 = treasure_rooms[i].duplicate(true)
+					for y in range(temp2.size()):
+						if temp2[y] is Array:
+							for x in range(temp2[y].size()):
+								if temp2[y][x] is Basic_types:
+									temp2[y][x] = temp2[y][x].copy()
+					body = temp2
 					instantiate_room(body)
 					add_detail(body)
-					body.pop_back()
 					return body
+			return "hahaha"
 			
 		2: #shop
-			body = shop_room.duplicate(true)
+			
+			var temp2 = shop_room.duplicate(true)
+			for y in range(temp2.size()):
+				if temp2[y] is Array:
+					for x in range(temp2[y].size()):
+						if temp2[y][x] is Basic_types:
+							temp2[y][x] = temp2[y][x].copy()
+			body = temp2
 			if sides.has("E"):
 				body[8][16] = 1
 			if sides.has("W"):
@@ -89,10 +127,15 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 				body[14][8] = 1
 			instantiate_room(body)
 			add_detail(body)
-			body.pop_back()
 			return body
 		3: #empty 1X1
-			body = empty_room.duplicate(true)
+			var temp2 = empty_room.duplicate(true)
+			for y in range(temp2.size()):
+				if temp2[y] is Array:
+					for x in range(temp2[y].size()):
+						if temp2[y][x] is Basic_types:
+							temp2[y][x] = temp2[y][x].copy()
+			body = temp2
 			if sides.has("E"):
 				body[8][16] = 1
 			if sides.has("W"):
@@ -103,12 +146,11 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 				body[14][8] = 1
 			instantiate_room(body)
 			add_detail(body)
-			body.pop_back()
 			return body
 		4: #empty 2x2
-			pass
+			return [[]]
 		5: #boss
-			pass
+			return [[]]
 
 func _init() -> void:
 	U.set_body(1)

@@ -35,7 +35,7 @@ func generate_map():
 					temp.fill(" ")
 					map.append(temp)
 					map[0][last_location[0]] = []
-					last_location[1] -= 1
+					last_location[1] = 0
 			1:
 				if last_location[1]+1 < len(map):
 					if not map[last_location[1]+1][last_location[0]] is Array:
@@ -48,21 +48,17 @@ func generate_map():
 					temp.resize(len(map[0]))
 					temp.fill(" ")
 					map.insert(-1,temp)
-					map[-1][last_location[0]] = room_gen.new()
+					map[0][last_location[0]] = []
 					last_location[1] += 1
 					
 			2:
-				if last_location[0]+1 < len(map[0]):
+				if last_location[0]+1 < len(map[last_location[1]]):
 					if not map[last_location[1]][last_location[0]+1] is Array:
 						map[last_location[1]][last_location[0]+1] = []
-						last_location[0] += 1
-						
 					else:
 						total_rooms += 1
 				else:
-					map[0].insert(-1," ")
-					map[last_location[1]][-1] = []
-					last_location[0] += 1
+					map[last_location[1]].insert(-1,[])
 					
 			3:
 				if last_location[0]-1 >= 0:
@@ -72,9 +68,8 @@ func generate_map():
 					else:
 						total_rooms += 1
 				else:
-					map[0].append(" ")
-					map[last_location[1]][0] = []
-					last_location[0] -= 1
+					map[0].append([])
+					last_location[0] = 0
 					
 			
 		pass
@@ -82,7 +77,8 @@ func generate_map():
 	#add a treasure room
 	for x in range(len(map[-1])):
 		if 1 in special_rooms_left:
-			map[-1][x] = room_generator.gen_room(1,[]).duplicate(true)
+			var temp = room_generator.gen_room(1,[])
+			map[-1][x] = temp.duplicate(true)
 			treasure_loc = [len(map),x]
 			special_rooms_left.erase(1)
 			
@@ -105,11 +101,13 @@ func generate_map():
 		for j in range(len(map[i])):
 			var entrances = []
 			if i-1 >= 0:
-				if map[i-1][j] is Array:
-					entrances.append("N")
+				if j < len(map[i-1]):
+					if map[i-1][j] is Array:
+						entrances.append("N")
 			if i+1 < len(map):
-				if map[i+1][j] is Array and [i,j] != treasure_loc:
-					entrances.append("S")
+				if j < len(map[i+1]):
+					if map[i+1][j] is Array and [i,j] != treasure_loc:
+						entrances.append("S")
 			if j-1 >= 0:
 				if map[i][j-1] is Array and [i,j] != treasure_loc:
 					entrances.append("W")
