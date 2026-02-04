@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://c2apxb2rgus3y"]
+
+[ext_resource type="Script" uid="uid://vfitbilp5i8v" path="res://player.gd" id="1_wtcfe"]
+[ext_resource type="Theme" uid="uid://dismfahxdsqkk" path="res://addons/GodotASCIIToolKit/Resources/Godot/Themes/ascii_label_theme.tres" id="2_0e48y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="Node2D" type="Control" unique_id=2134622646]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=812655738]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_0e48y")
+theme_override_constants/line_separation = -1
+theme_override_font_sizes/normal_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_0e48y")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0e48y")
+theme_override_styles/background = SubResource("StyleBoxFlat_0e48y")
+text = "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+script = ExtResource("1_wtcfe")

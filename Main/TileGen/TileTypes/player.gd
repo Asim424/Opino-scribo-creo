@@ -13,11 +13,15 @@ var curr_weapon
 var map = []
 var map_generator = map_gen.new()
 var weapon = [[]]
+
 func get_body():
 	return body
 
 func get_map() -> Array:
 	return map
+
+func get_room() -> Array:
+	return map[map_position[1]][map_position[0]]
 
 func move(direction : String):
 	var x = 0
@@ -27,23 +31,23 @@ func move(direction : String):
 		"S": y = 1
 		"E": x = 1
 		"W": x = -1
-	if map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] is Basic_types:	
-		print(map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x].type)
-		if map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x].type in [1,5]:
+	if get_room()[room_position[0]+y][room_position[1]+x] is Basic_types:
+		print(get_room()[room_position[0]+y][room_position[1]+x].type)
+		if get_room()[room_position[0]+y][room_position[1]+x].type in [1,5]:
 			return
 		else:
-			map[map_position[1]][map_position[0]][room_position[0]][room_position[1]] = tile_below
-			tile_below = map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x]
-			map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] = self
+			get_room()[room_position[0]][room_position[1]] = tile_below
+			tile_below = get_room()[room_position[0]+y][room_position[1]+x]
+			get_room()[room_position[0]+y][room_position[1]+x] = self
 			room_position[0] += y
 			room_position[1] += x
-	elif map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] is door:
-		var temp  = map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x]
-		map[map_position[1]][map_position[0]][room_position[0]][room_position[1]] = tile_below
+	elif get_room()[room_position[0]+y][room_position[1]+x] is door:
+		var temp  = get_room()[room_position[0]+y][room_position[1]+x]
+		get_room()[room_position[0]][room_position[1]] = tile_below
 		map_position = temp.map_coordinates
 		room_position = temp.room_coordinates
-		tile_below = map[map_position[1]][map_position[0]][room_position[0]][room_position[1]]
-		map[map_position[1]][map_position[0]][room_position[0]][room_position[1]] = self
+		tile_below = get_room()[room_position[0]][room_position[1]]
+		get_room()[room_position[0]][room_position[1]] = self
 	
 	print_room()
 	#print_map()
