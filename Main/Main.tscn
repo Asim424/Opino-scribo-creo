@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1ehsbw1rf8bx"]
+[gd_scene format=3 uid="uid://d1ehsbw1rf8bx"]
 
 [ext_resource type="Theme" uid="uid://dismfahxdsqkk" path="res://addons/GodotASCIIToolKit/Resources/Godot/Themes/ascii_label_theme.tres" id="1_83ytx"]
-[ext_resource type="Script" path="res://Main/TileGen/TileTypes/player.gd" id="2_amygn"]
+[ext_resource type="Script" uid="uid://d0m55i184kiur" path="res://Main/TileGen/TileTypes/player.gd" id="2_amygn"]
 [ext_resource type="PackedScene" uid="uid://damki1brhvp1w" path="res://Main/Combat/Weapon/weapon.tscn" id="3_amygn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" unique_id=303779421]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,24 +15,47 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-clip_contents = false
+[node name="ColorRect" type="ColorRect" parent="." unique_id=394899664]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="." unique_id=218234374]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control" unique_id=2042075458]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -198.5
+offset_top = -7.0
+offset_right = 198.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_83ytx")
 theme_override_constants/line_separation = -1
 theme_override_font_sizes/normal_font_size = 13
-theme_override_styles/background = SubResource("StyleBoxFlat_0e48y")
-theme_override_styles/focus = SubResource("StyleBoxFlat_0e48y")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0e48y")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0e48y")
+theme_override_styles/background = SubResource("StyleBoxFlat_0e48y")
 text = "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
 fit_content = true
 autowrap_mode = 0
 script = ExtResource("2_amygn")
 
-[node name="Weapon" parent="." node_paths=PackedStringArray("playerParent") instance=ExtResource("3_amygn")]
-playerParent = NodePath("../RichTextLabel")
+[node name="Weapon" parent="." unique_id=1379525267 node_paths=PackedStringArray("playerParent") instance=ExtResource("3_amygn")]
+playerParent = NodePath("../Control/RichTextLabel")
