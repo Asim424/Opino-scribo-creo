@@ -1,7 +1,6 @@
 extends RichTextLabel
 class_name printer
 
-var map_generator = map_gen.new()
 var map
 var room_generator = room_gen.new()
 var Player = player.new()
@@ -58,22 +57,19 @@ func room_to_ascii(room) -> String:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	map_generator.generate_map()
-	map = map_generator.map.duplicate(true)
+	map = Player.map.duplicate(true)
 	var semi = ""
-	
-	for i in range(map.size()): # Grid Row (0 to 2)
-		for j in range(map[i].size()): # Tile Row (0 to 2)
-			var output_text = room_to_ascii(map[i][j])
-			if output_text != " ":
-				semi += "R"
-				output_text = semi +"\n" + output_text
-				self.text = output_text
-				await get_tree().create_timer(1.0).timeout
-			else:
-				semi += " "
-			#print(j)
-		semi += "\n"
+	var coords = Player.map_position
+	var output_text = room_to_ascii(map[coords[1]][coords[0]])
+	if output_text != " ":
+		semi += "R"
+		output_text = semi +"\n" + output_text
+		self.text = output_text
+		await get_tree().create_timer(1.0).timeout
+	else:
+		semi += " "
+	#print(j)
+	semi += "\n"
 	print(semi)
 
 

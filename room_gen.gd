@@ -38,7 +38,7 @@ func add_detail(body):
 						if tile.get_body()[y][x] == " " and rng.randi_range(1, 100) <= 4:
 							tile.get_body()[y][x] = details.pick_random()
 
-func instantiate_room(room):
+func instantiate_room(room, coords = []):
 	var out = []
 	for y in range(room.size()):
 		var row = []
@@ -48,10 +48,19 @@ func instantiate_room(room):
 				if cell is int:
 					if cell == 1:
 						var Door = door.new()
-						
+						var spawn = [y,x]
+						var temp_coords = coords.duplicate()
+						if x == 16:
+							temp_coords[0] += 1
+						if x == 0:
+							temp_coords[0] -= 1
+						if y == 0:
+							temp_coords[1] -= 1
+						if y == 14:
+							temp_coords[1] += 1
+						Door.set_map_coords(temp_coords)
 						# Example destination logic
 						#var next_room = pick_next_room_id(current_room_id) #do this in map_gen
-						var spawn = [x,y]
 
 						Door.set_room_coords(spawn)
 						row.append(Door)
@@ -82,7 +91,7 @@ func instantiate_room(room):
 			out.append(row)
 	return out
 
-func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
+func gen_room(choice, sides: Array, coords : Array = []):#when doing treasure, sides does not matter
 	#when doing shop, sides has to be either ["E"], ["W"] or ["E","W"]
 	#when doing 2x2, sides has to be in the form ["SE","WN"] etc, 
 	#first letter is the wall, 2nd is where on the wall
@@ -99,7 +108,7 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 								if temp2[y][x] is Basic_types:
 									temp2[y][x] = temp2[y][x].copy()
 					body = temp2
-					body = instantiate_room(body)
+					body = instantiate_room(body, coords)
 					add_detail(body)
 					return body
 			return "hahaha"
@@ -117,7 +126,7 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 				body[7][16] = 1
 			if sides.has("W"):
 				body[7][0] = 1
-			body = instantiate_room(body)
+			body = instantiate_room(body, coords)
 			add_detail(body)
 			return body
 		3: #empty 1X1
@@ -136,7 +145,7 @@ func gen_room(choice, sides: Array):#when doing treasure, sides does not matter
 				body[0][8] = 1
 			if sides.has("S"):
 				body[14][8] = 1
-			body = instantiate_room(body)
+			body = instantiate_room(body, coords)
 			add_detail(body)
 			return body
 		4: #empty 2x2

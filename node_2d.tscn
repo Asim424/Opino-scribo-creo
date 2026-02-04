@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://d0m55i184kiur" path="res://player.gd" id="1_wtcfe"]
 [ext_resource type="Theme" uid="uid://dismfahxdsqkk" path="res://addons/GodotASCIIToolKit/Resources/Godot/Themes/ascii_label_theme.tres" id="2_0e48y"]
-[ext_resource type="Script" uid="uid://dvrm3bxspa6pp" path="res://print_room.gd" id="3_epypp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
 bg_color = Color(0, 0, 0, 1)
@@ -14,7 +13,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_wtcfe")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=812655738]
 clip_contents = false
@@ -34,4 +32,4 @@ text = "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 fit_content = true
 autowrap_mode = 0
 vertical_alignment = 1
-script = ExtResource("3_epypp")
+script = ExtResource("1_wtcfe")

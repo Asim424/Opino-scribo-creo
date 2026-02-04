@@ -1,17 +1,54 @@
-extends Control
+extends RichTextLabel
+
 class_name player
 var HP = 10
 var max_HP = 10
-var room_position = [0,0]
+var room_position = [7,8]
 var map_position = [0,0]
 var body = [["╔","═","/","\\","═","╗"], #player character 
 	 ["║","@","_","_","@","║"],
 	 ["╚","═","═","═","═","╝"]]
 var tile_below
 var curr_weapon
+var map = []
+var map_generator = map_gen.new()
 
-func move():
-	pass
+func get_body():
+	return body
+
+func get_map() -> Array:
+	return map
+
+func move(direction : String):
+	var x = 0
+	var y = 0
+	match direction:
+		"N": y = -1
+		"S": y = 1
+		"E": x = 1
+		"W": x = -1
+	if map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] in [Basic_types.end_wall,Basic_types.Unpassable]:	
+		return
+	elif map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] is door:	
+		var temp  = map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x]
+		map[map_position[1]][map_position[0]][room_position[0]][room_position[1]] = tile_below
+		map_position = temp.map_coordinates
+		room_position = temp.room_coordinates
+		tile_below = map[map_position[1]][map_position[0]][room_position[0]][room_position[1]]
+		map[map_position[1]][map_position[0]][room_position[0]][room_position[1]] = self
+		pass
+	else:
+		map[map_position[1]][map_position[0]][room_position[0]][room_position[1]] = tile_below
+		tile_below = map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x]
+		map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] = self
+		room_position[0] += y
+		room_position[1] += x
+	print_room()
+	
+	
+	#if tile_below is door:
+		#map_position = tile_below.map_coordinates
+		#room_position = tile_below.room_cordinates
 	#store the tile you will move onto in a temp variable
 	#store current coordinates in a temp variable
 	#set the coordinates and facing direction to the new location
@@ -19,7 +56,7 @@ func move():
 	#replace this player object with the tile in tile_below
 	#delete this player object in case it is still active to avoid memory leak
 
-func attack():
+func attack(direction : String):
 	pass
 	#spawn new text box with the hitboxes
 	#rotate based on direction input
@@ -27,10 +64,90 @@ func attack():
 	#delete textbox once animation is complete
 	
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _init() -> void:
+	map_generator.generate_map()
+	map = map_generator.map.duplicate(true)
+	map_position = map_generator.player_map.duplicate()
+	tile_below = map[map_position[1]][map_position[0]][7][8]
+	map[map_position[1]][map_position[0]][7][8] = self
+	print_room()
+	# Replace with function body.
 
 
+func _input(event):
+	if event.is_action_pressed("W"):
+		move("N")
+	if event.is_action_pressed("A"):
+		move("W")
+	if event.is_action_pressed("S"):
+		move("S")
+	if event.is_action_pressed("D"):
+		move("E")
+	if event.is_action_pressed("ui_text_caret_up"):
+		attack("N")
+	if event.is_action_pressed("ui_text_caret_down"):
+		attack("S")
+	if event.is_action_pressed("ui_text_caret_left"):
+		attack("W")
+	if event.is_action_pressed("ui_text_caret_right"):
+		attack("E")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+func print_room():
+	print(room_position)
+	var semi = ""
+	var output_text = room_to_ascii(map[map_position[1]][map_position[0]])
+	if output_text != " ":
+		semi += "R"
+		output_text = semi +"\n" + output_text
+		self.text = output_text
+
+	else:
+		semi += " "
+	#print(j)
+	semi += "\n"
+	
+func room_to_ascii(room) -> String:
+	if typeof(room) == TYPE_STRING:
+		return room  # Already ASCII
+
+	var output_text := ""
+
+	# Number of rows of tiles in the room
+	var room_rows = room.size()
+
+	for row_index in room_rows:
+		var room_row = room[row_index]
+
+		# Determine tallest tile in this row
+		var tile_row_height := 0
+		for tile in room_row:
+			if typeof(tile) != TYPE_INT:
+				tile_row_height = max(tile_row_height, tile.get_body().size())
+			else:
+				tile_row_height = max(tile_row_height, 1) # placeholder height
+
+		# Iterate line by line (inside tiles)
+		for line_index in tile_row_height:
+			var current_line := ""
+
+			for tile in room_row:
+				if typeof(tile) != TYPE_INT:
+					var tile_body = tile.get_body()
+					if line_index < tile_body.size():
+						for char in tile_body[line_index]:
+							current_line += str(char)
+					else:
+						# pad with spaces if tile shorter than tallest
+						var width := 1
+						if tile_body.size() > 0:
+							width = tile_body[0].size()
+						current_line += " ".repeat(width)
+				else:
+					current_line += "LLL"  # placeholder for int tiles
+
+			output_text += current_line + "\n"
+
+	return output_text
