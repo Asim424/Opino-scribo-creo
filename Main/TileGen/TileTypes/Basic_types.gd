@@ -22,13 +22,14 @@ static var end_wall = [["█","█","█","█","█","█"], # WALL
 static var broken_wall =  [["░","▒"," ","▒","▒"," "], # broken wall
    			   ["▒"," ","░","░"," ","▒"],
 			   [" ","▒","▒"," ","▒","░"]]
-
+var type =-1
 var body = [[]]
 
 func get_body():
 	return body
 
 func set_body(choice):
+	type = choice
 	match choice:
 		1: body = Unpassable.duplicate(true)
 		2: body = fast.duplicate(true)
@@ -44,6 +45,7 @@ func _ready() -> void:
 func copy():
 	var temp = Basic_types.new()
 	temp.body = body.duplicate(true)
+	temp.type = type
 	return temp
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

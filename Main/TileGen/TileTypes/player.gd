@@ -12,7 +12,7 @@ var tile_below
 var curr_weapon
 var map = []
 var map_generator = map_gen.new()
-
+var weapon = [[]]
 func get_body():
 	return body
 
@@ -27,23 +27,27 @@ func move(direction : String):
 		"S": y = 1
 		"E": x = 1
 		"W": x = -1
-	if map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] in [Basic_types.end_wall,Basic_types.Unpassable]:	
-		return
-	elif map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] is door:	
+	if map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] is Basic_types:	
+		print(map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x].type)
+		if map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x].type in [1,5]:
+			return
+		else:
+			map[map_position[1]][map_position[0]][room_position[0]][room_position[1]] = tile_below
+			tile_below = map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x]
+			map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] = self
+			room_position[0] += y
+			room_position[1] += x
+	elif map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] is door:
 		var temp  = map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x]
 		map[map_position[1]][map_position[0]][room_position[0]][room_position[1]] = tile_below
 		map_position = temp.map_coordinates
 		room_position = temp.room_coordinates
 		tile_below = map[map_position[1]][map_position[0]][room_position[0]][room_position[1]]
 		map[map_position[1]][map_position[0]][room_position[0]][room_position[1]] = self
-		pass
-	else:
-		map[map_position[1]][map_position[0]][room_position[0]][room_position[1]] = tile_below
-		tile_below = map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x]
-		map[map_position[1]][map_position[0]][room_position[0]+y][room_position[1]+x] = self
-		room_position[0] += y
-		room_position[1] += x
+	
 	print_room()
+	#print_map()
+	print_doors()
 	
 	
 	#if tile_below is door:
@@ -95,8 +99,26 @@ func _input(event):
 func _process(delta: float) -> void:
 	pass
 	
+func print_map():
+	var temp = ""
+	for i in range(map.size()):
+		for j in range(map[i].size()):
+			if [j,i] == map_position:
+				temp += "H"
+			elif map[i][j] is not String:
+				temp += "R"
+			else:
+				temp += " "
+		temp += "\n"
+	print(temp)
+	
+func print_doors():
+	for i in range(map[map_position[1]][map_position[0]].size()):
+		for j in range(map[map_position[1]][map_position[0]][i].size()):
+			if map[map_position[1]][map_position[0]][i][j] is door:
+				print(map[map_position[1]][map_position[0]][i][j].room_coordinates)
+				
 func print_room():
-	print(room_position)
 	var semi = ""
 	var output_text = room_to_ascii(map[map_position[1]][map_position[0]])
 	if output_text != " ":
@@ -106,7 +128,7 @@ func print_room():
 
 	else:
 		semi += " "
-	#print(j)
+	print(semi)
 	semi += "\n"
 	
 func room_to_ascii(room) -> String:
