@@ -1,4 +1,4 @@
-extends "res://treasure-rooms.gd"
+extends "res://Main/RoomGen/Rooms/treasure-rooms.gd"
 
 
 # Called when the node enters the scene tree for the first time.
