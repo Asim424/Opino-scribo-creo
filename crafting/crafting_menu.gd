@@ -1,5 +1,7 @@
 extends Control
 
+class_name Crafting
+
 @export var PlayerBox : TextEdit
 
 var word_dict = ["hello", "scrabble", "bat"]
