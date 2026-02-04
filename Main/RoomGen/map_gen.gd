@@ -30,6 +30,7 @@ func generate_map():
 						last_location[1] -= 1
 					else:
 						total_rooms += 1
+						last_location[1] -= 1
 				else:
 					var temp = [""]
 					temp.resize(len(map[0]))
@@ -44,14 +45,14 @@ func generate_map():
 						map[last_location[1]+1][last_location[0]] = [""]
 						last_location[1] += 1
 					else:
+						last_location[1] += 1
 						total_rooms += 1
 				else:
 					var temp = [""]
 					temp.resize(len(map[last_location[1]]))
 					temp.fill(" ")
 					temp[last_location[0]] = [""]
-					map.append(temp)
-					last_location[1] += 1
+					map.insert(0,temp)
 					
 			2:
 				if last_location[0]+1 < len(map[last_location[1]]):
@@ -59,6 +60,7 @@ func generate_map():
 						map[last_location[1]][last_location[0]+1] = [""]
 						last_location[0] += 1
 					else:
+						last_location[0] += 1
 						total_rooms += 1
 				else:
 					for i in range(map.size()):
@@ -74,6 +76,7 @@ func generate_map():
 						last_location[0] -= 1
 						
 					else:
+						last_location[0] -= 1
 						total_rooms += 1
 				else:
 					for i in range(map.size()):
@@ -88,13 +91,12 @@ func generate_map():
 	#add a treasure room
 	for x in range(len(map[-1])-1,0,-1):
 		if map[-1][x] is Array:
-			if map[-1][x][0] != "START":
-				var temp = []
-				temp.resize(x+1)
-				temp.fill(" ")
-				treasure_loc = [len(map),x]
-				temp[-1] = room_generator.gen_room(1,[],treasure_loc)
-				map.append(temp)
+			var temp = []
+			temp.resize(x+1)
+			temp.fill(" ")
+			treasure_loc = [len(map),x]
+			temp[-1] = room_generator.gen_room(1,[],treasure_loc)
+			map.append(temp)
 
 			
 	#add a shop

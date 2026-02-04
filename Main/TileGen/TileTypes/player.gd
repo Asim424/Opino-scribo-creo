@@ -50,8 +50,6 @@ func move(direction : String):
 		get_room()[room_position[0]][room_position[1]] = self		#move player
 	
 	print_room()	#then show the room
-	print_map()
-	#print_doors()
 	
 	
 	#if tile_below is door:
