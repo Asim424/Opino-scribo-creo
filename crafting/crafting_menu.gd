@@ -127,8 +127,8 @@ func _on_text_changed():
 var showing = false
 
 func _on_gui_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
 	
+	if event is InputEventKey and event.is_pressed():
 		if event.as_text().to_lower() == "tab":
 			
 			if showing:
@@ -140,7 +140,10 @@ func _on_gui_input(event: InputEvent) -> void:
 				self.show()
 				self.z_index=5
 				showing = true
-			print(showing)
+	if not showing:
+		return
+	if event is InputEventKey and event.pressed:
+		
 		if PlayerBox.get_caret_line() > Text.size()-1 or PlayerBox.get_caret_column() > Text[0].size()-1:
 			accept_event()
 			return
