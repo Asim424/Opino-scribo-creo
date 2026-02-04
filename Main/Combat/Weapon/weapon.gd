@@ -11,5 +11,5 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	self.position.x = playerParent.room_position[1]*16
-	self.position.y = playerParent.room_position[0]*16
+	self.position.x = playerParent.position.x + (playerParent.room_position[1]+0.5)*13*3
+	self.position.y = playerParent.position.y + (playerParent.room_position[0]+0.5)*13*3
