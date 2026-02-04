@@ -92,18 +92,7 @@ func generate_map():
 			temp[-1] = room_generator.gen_room(1,[])
 			map.append(temp)
 			treasure_loc = [len(map)-1,x]
-			#print(x)
-			#var semi = ""
-			#for temp1 in range(map.size()): # Grid Row (0 to 2)
-				#for temp2 in range(map[temp1].size()): # Tile Row (0 to 2)
-					#if temp1 == len(map)-1 and temp2 == x:
-						#semi += "T"
-					#elif map[temp1][temp2] is Array:
-						#semi += "R"
-					#else:
-						#semi += " "
-				#semi += "\n"
-			#print(semi)
+
 			
 	#add a shop
 	
@@ -135,20 +124,21 @@ func generate_map():
 			entrances = []
 			
 	if shop_loc == [-1,-1]:
-		map[longest[0]].append(" ")
+		if map[longest[0]][-1] is Array:
+			map[longest[0]].append(" ")
 		map[longest[0]][-1] = room_generator.gen_room(2,["W"])
 		shop_loc = [longest[0],map[longest[0]].size()-1]
-		
+				
 	for i in range(len(map)):
 		for j in range(len(map[i])):
 			entrances = []
 			if i-1 >= 0:
 				if j < len(map[i-1]):
-					if map[i-1][j] is Array:
+					if map[i-1][j] is Array and [i-1,j] != shop_loc:
 						entrances.append("N")
 			if i+1 < len(map):
 				if j < len(map[i+1]):
-					if map[i+1][j] is Array:
+					if map[i+1][j] is Array and [i+1,j] != shop_loc:
 						entrances.append("S")
 			if j-1 >= 0:
 				if map[i][j-1] is Array:

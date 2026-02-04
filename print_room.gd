@@ -67,6 +67,7 @@ func _ready() -> void:
 			var output_text = room_to_ascii(map[i][j])
 			if output_text != " ":
 				semi += "R"
+				output_text = semi +"\n" + output_text
 				self.text = output_text
 				await get_tree().create_timer(1.0).timeout
 			else:

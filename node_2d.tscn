@@ -33,6 +33,5 @@ theme_override_styles/background = SubResource("StyleBoxFlat_0e48y")
 text = "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
 fit_content = true
 autowrap_mode = 0
-horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_epypp")
