@@ -1,0 +1,732 @@
+[gd_scene format=3 uid="uid://brldrj2ucyctu"]
+
+[ext_resource type="Theme" uid="uid://dismfahxdsqkk" path="res://addons/GodotASCIIToolKit/Resources/Godot/Themes/ascii_label_theme.tres" id="1_7nw2g"]
+[ext_resource type="Script" uid="uid://4jhdcbfraiux" path="res://crafting/crafting_menu.gd" id="1_mlhx7"]
+[ext_resource type="StyleBox" uid="uid://qfgjah1ymyde" path="res://crafting/BlackTextBox.tres" id="2_ev7a0"]
+[ext_resource type="Script" uid="uid://bwd7utwfjc8fs" path="res://crafting/player_box.gd" id="2_pdcgn"]
+[ext_resource type="StyleBox" uid="uid://ddgpnh37pxcx8" path="res://crafting/ClearBGTextBox.tres" id="3_dqjj4"]
+[ext_resource type="Script" uid="uid://5hlwh3rh60fx" path="res://crafting/instructions.gd" id="4_ev7a0"]
+[ext_resource type="Script" uid="uid://j04mqus7vtux" path="res://crafting/player_box_alt.gd" id="4_oq3uc"]
+
+[sub_resource type="Gradient" id="Gradient_pdcgn"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1scea"]
+gradient = SubResource("Gradient_pdcgn")
+
+[node name="CraftingMenu" type="Control" unique_id=908253453]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mlhx7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1113890562]
+position = Vector2(2054, 1211)
+scale = Vector2(16.398438, 2472)
+texture = SubResource("GradientTexture1D_1scea")
+
+[node name="PlayerBoxGrid" type="GridContainer" parent="." unique_id=1635710775]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_right = 0.75
+anchor_bottom = 0.5
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 5
+script = ExtResource("2_pdcgn")
+
+[node name="PlayerBox" type="TextEdit" parent="PlayerBoxGrid" unique_id=841028020]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox2" type="TextEdit" parent="PlayerBoxGrid" unique_id=1584855400]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox3" type="TextEdit" parent="PlayerBoxGrid" unique_id=2101535908]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox4" type="TextEdit" parent="PlayerBoxGrid" unique_id=1300085423]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox5" type="TextEdit" parent="PlayerBoxGrid" unique_id=1845695277]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox6" type="TextEdit" parent="PlayerBoxGrid" unique_id=1877479848]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox7" type="TextEdit" parent="PlayerBoxGrid" unique_id=2141200443]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox8" type="TextEdit" parent="PlayerBoxGrid" unique_id=982541946]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox9" type="TextEdit" parent="PlayerBoxGrid" unique_id=326194231]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox10" type="TextEdit" parent="PlayerBoxGrid" unique_id=765377584]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox11" type="TextEdit" parent="PlayerBoxGrid" unique_id=164544055]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox12" type="TextEdit" parent="PlayerBoxGrid" unique_id=1765839606]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox13" type="TextEdit" parent="PlayerBoxGrid" unique_id=826321215]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox14" type="TextEdit" parent="PlayerBoxGrid" unique_id=98355751]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBox15" type="TextEdit" parent="PlayerBoxGrid" unique_id=1232457438]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+text = "
+aaa
+aaa
+aaa"
+emoji_menu_enabled = false
+wrap_mode = 1
+scroll_v_scroll_speed = 1.0
+
+[node name="PlayerBoxAlt" type="TextEdit" parent="." unique_id=2043278509]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_right = 0.75
+anchor_bottom = 0.5
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+theme_override_styles/read_only = ExtResource("2_ev7a0")
+text = "AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+script = ExtResource("4_oq3uc")
+
+[node name="Control2" type="Control" parent="." unique_id=1328504033]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.5
+anchor_right = 0.75
+anchor_bottom = 1.0
+
+[node name="Anvil" type="TextEdit" parent="Control2" unique_id=933316012]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07
+anchor_top = 0.07
+anchor_right = 0.93
+anchor_bottom = 0.93
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_styles/normal = ExtResource("3_dqjj4")
+text = "  ⠀
+  ⠹⣿⣿⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢠⣄⡀⠀⠀
+   ⠀⠀⠙⢿⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⡶⠀
+   ⠀⠀⠀⠀⠉⠛⠇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠸⠟⠋⠀⠀ 
+ ⠀  ⠀⠀⠀⠀⠀⠀⠸⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠇⠀⠀⠀⠀⠀ 
+ ⠀⠀  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
+ ⠀⠀⠀  ⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀ 
+ ⠀⠀⠀⠀  ⠀⠀⠀⠀⠀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀ 
+ ⠀⠀⠀⠀⠀  ⠀⣀⣀⣈⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣁⣀⣀⠀⠀⠀⠀ 
+ ⠀⠀⠀⠀⠀⠀  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀  "
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+empty_selection_clipboard_enabled = false
+virtual_keyboard_enabled = false
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="Instructions" type="RichTextLabel" parent="." unique_id=1188464193]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_right = 0.25
+anchor_bottom = 1.0
+theme = ExtResource("1_7nw2g")
+theme_override_colors/default_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "
+Anvil
+
+	Type in the box to the Left to craft your weapon.
+
+	Words are worth a greater Damage value!
+
+	Keep words and letters balanced, if your symmetry is off it may affect your damage.
+
+	Words can be made left to right and up to down.
+
+	"
+script = ExtResource("4_ev7a0")
+
+[node name="Control" type="Control" parent="." unique_id=1102130886]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.5
+anchor_right = 0.75
+anchor_bottom = 1.0
+
+[node name="LetterHolder" type="GridContainer" parent="." unique_id=589725070]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_right = 1.0
+anchor_bottom = 1.0
+columns = 6
+
+[node name="ExampleLetter" type="TextEdit" parent="LetterHolder" unique_id=76513351]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter2" type="TextEdit" parent="LetterHolder" unique_id=144217466]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter3" type="TextEdit" parent="LetterHolder" unique_id=1569523851]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter4" type="TextEdit" parent="LetterHolder" unique_id=1874580888]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter5" type="TextEdit" parent="LetterHolder" unique_id=663017102]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter6" type="TextEdit" parent="LetterHolder" unique_id=460497481]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter7" type="TextEdit" parent="LetterHolder" unique_id=121515294]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter8" type="TextEdit" parent="LetterHolder" unique_id=454166777]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter9" type="TextEdit" parent="LetterHolder" unique_id=1784512559]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter10" type="TextEdit" parent="LetterHolder" unique_id=365590181]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter11" type="TextEdit" parent="LetterHolder" unique_id=990359124]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter12" type="TextEdit" parent="LetterHolder" unique_id=944985373]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter13" type="TextEdit" parent="LetterHolder" unique_id=1738325386]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter14" type="TextEdit" parent="LetterHolder" unique_id=678966593]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter15" type="TextEdit" parent="LetterHolder" unique_id=2087995409]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter16" type="TextEdit" parent="LetterHolder" unique_id=776170229]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter17" type="TextEdit" parent="LetterHolder" unique_id=1759245604]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter18" type="TextEdit" parent="LetterHolder" unique_id=1370106693]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter19" type="TextEdit" parent="LetterHolder" unique_id=132557157]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter20" type="TextEdit" parent="LetterHolder" unique_id=2034998909]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter21" type="TextEdit" parent="LetterHolder" unique_id=58056936]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter22" type="TextEdit" parent="LetterHolder" unique_id=1384022305]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter23" type="TextEdit" parent="LetterHolder" unique_id=516058544]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter24" type="TextEdit" parent="LetterHolder" unique_id=50708695]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter25" type="TextEdit" parent="LetterHolder" unique_id=1590200377]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter26" type="TextEdit" parent="LetterHolder" unique_id=1773533773]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter27" type="TextEdit" parent="LetterHolder" unique_id=1148710840]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter28" type="TextEdit" parent="LetterHolder" unique_id=498397952]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter29" type="TextEdit" parent="LetterHolder" unique_id=1109515984]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter30" type="TextEdit" parent="LetterHolder" unique_id=656782748]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter31" type="TextEdit" parent="LetterHolder" unique_id=1697716887]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter32" type="TextEdit" parent="LetterHolder" unique_id=359523796]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter33" type="TextEdit" parent="LetterHolder" unique_id=396269319]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter34" type="TextEdit" parent="LetterHolder" unique_id=843451939]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter35" type="TextEdit" parent="LetterHolder" unique_id=185349281]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
+
+[node name="ExampleLetter36" type="TextEdit" parent="LetterHolder" unique_id=813107430]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_7nw2g")
+theme_override_font_sizes/font_size = 32
+text = "A"
