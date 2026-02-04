@@ -42,7 +42,7 @@ func move(direction : String):
 			room_position[0] += y	#set player position
 			room_position[1] += x
 	elif get_room()[room_position[0]+y][room_position[1]+x] is door:		#doors
-		var temp  = get_room()[room_position[0]+y][room_position[1]+x]	#store door
+		var temp  = get_room()[room_position[0]+y][room_position[1]+x].copy()	#store door
 		get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with tile it was standing on
 		map_position = temp.map_coordinates		#door points to the new position for the player
 		room_position = temp.room_coordinates
@@ -50,8 +50,8 @@ func move(direction : String):
 		get_room()[room_position[0]][room_position[1]] = self		#move player
 	
 	print_room()	#then show the room
-	#print_map()
-	print_doors()
+	print_map()
+	#print_doors()
 	
 	
 	#if tile_below is door:
