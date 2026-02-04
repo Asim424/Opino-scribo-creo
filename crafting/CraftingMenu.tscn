@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://brldrj2ucyctu"]
+
+[ext_resource type="Theme" uid="uid://dismfahxdsqkk" path="res://addons/GodotASCIIToolKit/Resources/Godot/Themes/ascii_label_theme.tres" id="1_7nw2g"]
+[ext_resource type="Script" uid="uid://4jhdcbfraiux" path="res://crafting/crafting_menu.gd" id="1_mlhx7"]
+[ext_resource type="StyleBox" uid="uid://qfgjah1ymyde" path="res://crafting/BlackTextBox.tres" id="2_ev7a0"]
+[ext_resource type="StyleBox" uid="uid://ddgpnh37pxcx8" path="res://crafting/ClearBGTextBox.tres" id="3_dqjj4"]
+[ext_resource type="Script" uid="uid://5hlwh3rh60fx" path="res://crafting/instructions.gd" id="4_ev7a0"]
+
+[sub_resource type="Gradient" id="Gradient_pdcgn"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1scea"]
+gradient = SubResource("Gradient_pdcgn")
+
+[node name="CraftingMenu" type="Control" unique_id=908253453 node_paths=PackedStringArray("PlayerBox")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mlhx7")
+PlayerBox = NodePath("Control3/PlayerBoxAlt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1113890562]
+position = Vector2(2054, 1211)
+scale = Vector2(16.398438, 2472)
+texture = SubResource("GradientTexture1D_1scea")
+
+[node name="Control3" type="Control" parent="." unique_id=1088762420]
+layout_mode = 1
+anchor_left = 0.25
+anchor_right = 0.75
+anchor_bottom = 0.5
+
+[node name="PlayerBoxAlt" type="TextEdit" parent="Control3" unique_id=2043278509]
+custom_minimum_size = Vector2(500, 250)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7nw2g")
+theme_override_colors/caret_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_colors/caret_background_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("2_ev7a0")
+theme_override_styles/focus = ExtResource("2_ev7a0")
+theme_override_styles/read_only = ExtResource("2_ev7a0")
+text = "AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+selecting_enabled = false
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="Control2" type="Control" parent="." unique_id=1328504033]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.5
+anchor_right = 0.75
+anchor_bottom = 1.0
+
+[node name="Anvil" type="TextEdit" parent="Control2" unique_id=933316012]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.25
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_7nw2g")
+theme_override_colors/font_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_constants/line_spacing = 0
+theme_override_styles/normal = ExtResource("3_dqjj4")
+text = "  ⠀
+  ⠹⣿⣿⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢠⣄⡀⠀⠀
+   ⠀⠀⠙⢿⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢸⣿⣿⡶⠀
+   ⠀⠀⠀⠀⠉⠛⠇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠸⠟⠋⠀⠀ 
+ ⠀  ⠀⠀⠀⠀⠀⠀⠸⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠇⠀⠀⠀⠀⠀ 
+ ⠀⠀  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⣶⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
+ ⠀⠀⠀  ⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀ 
+ ⠀⠀⠀⠀  ⠀⠀⠀⠀⠀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀ 
+ ⠀⠀⠀⠀⠀  ⠀⣀⣀⣈⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣉⣁⣀⣀⠀⠀⠀⠀ 
+ ⠀⠀⠀⠀⠀⠀  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⠀  "
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+empty_selection_clipboard_enabled = false
+virtual_keyboard_enabled = false
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="Instructions" type="RichTextLabel" parent="." unique_id=1188464193]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_right = 0.25
+anchor_bottom = 1.0
+theme = ExtResource("1_7nw2g")
+theme_override_colors/default_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "
+Anvil
+
+	Type in the box to the Left to craft your weapon.
+
+	Words are worth a greater Damage value!
+
+	Words can be made left to right and up to down.
+"
+script = ExtResource("4_ev7a0")
+
+[node name="Control" type="Control" parent="." unique_id=1102130886]
+layout_mode = 1
+anchor_left = 0.25
+anchor_top = 0.5
+anchor_right = 0.75
+anchor_bottom = 1.0
+
+[node name="LetterHolder" type="RichTextLabel" parent="." unique_id=1473980467]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("1_7nw2g")
+theme_override_colors/default_color = Color(0.35185814, 0.684046, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
