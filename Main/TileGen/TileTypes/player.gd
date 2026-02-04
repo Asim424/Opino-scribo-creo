@@ -31,25 +31,25 @@ func move(direction : String):
 		"S": y = 1
 		"E": x = 1
 		"W": x = -1
-	if get_room()[room_position[0]+y][room_position[1]+x] is Basic_types:
+	if get_room()[room_position[0]+y][room_position[1]+x] is Basic_types:	#walls, floors, nothing special
 		print(get_room()[room_position[0]+y][room_position[1]+x].type)
-		if get_room()[room_position[0]+y][room_position[1]+x].type in [1,5]:
+		if get_room()[room_position[0]+y][room_position[1]+x].type in [1,5]:	#check if its a wall
 			return
 		else:
-			get_room()[room_position[0]][room_position[1]] = tile_below
-			tile_below = get_room()[room_position[0]+y][room_position[1]+x]
-			get_room()[room_position[0]+y][room_position[1]+x] = self
-			room_position[0] += y
+			get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with the tile its standing on rn
+			tile_below = get_room()[room_position[0]+y][room_position[1]+x]		#stores next tile 
+			get_room()[room_position[0]+y][room_position[1]+x] = self		#replaces next tile with player
+			room_position[0] += y	#set player position
 			room_position[1] += x
-	elif get_room()[room_position[0]+y][room_position[1]+x] is door:
-		var temp  = get_room()[room_position[0]+y][room_position[1]+x]
-		get_room()[room_position[0]][room_position[1]] = tile_below
-		map_position = temp.map_coordinates
+	elif get_room()[room_position[0]+y][room_position[1]+x] is door:		#doors
+		var temp  = get_room()[room_position[0]+y][room_position[1]+x]	#store door
+		get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with tile it was standing on
+		map_position = temp.map_coordinates		#door points to the new position for the player
 		room_position = temp.room_coordinates
-		tile_below = get_room()[room_position[0]][room_position[1]]
-		get_room()[room_position[0]][room_position[1]] = self
+		tile_below = get_room()[room_position[0]][room_position[1]]		#store next tile
+		get_room()[room_position[0]][room_position[1]] = self		#move player
 	
-	print_room()
+	print_room()	#then show the room
 	#print_map()
 	print_doors()
 	
