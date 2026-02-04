@@ -58,6 +58,7 @@ func _input(event: InputEvent) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	self.hide()
 	content = content.remove_chars(" ")
 	content = content.replace("\n", "")
 	word_dict = content.split("\r")
@@ -122,9 +123,24 @@ func _on_text_changed():
 		# Move cursor to the end
 		PlayerBox.set_caret_line(PlayerBox.get_line_count())
 	
-	
+
+var showing = false
+
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
+	
+		if event.as_text().to_lower() == "tab":
+			
+			if showing:
+				self.hide()
+				self.z_index=-1
+				
+				showing = false
+			else:
+				self.show()
+				self.z_index=5
+				showing = true
+			print(showing)
 		if PlayerBox.get_caret_line() > Text.size()-1 or PlayerBox.get_caret_column() > Text[0].size()-1:
 			accept_event()
 			return

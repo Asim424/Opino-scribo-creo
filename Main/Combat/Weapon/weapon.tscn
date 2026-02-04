@@ -5,10 +5,99 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fyppt"]
 
-[node name="Weapon" type="Node2D" unique_id=1338032453 node_paths=PackedStringArray("WeaponSprite", "hitBox")]
+[sub_resource type="Animation" id="Animation_traxp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_yskgf"]
+resource_name = "SwingDOWN"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.7853981633974483, 2.356194490192345]
+}
+
+[sub_resource type="Animation" id="Animation_gs4nl"]
+resource_name = "SwingLEFT"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-2.356194490192345, -3.9269908169872414]
+}
+
+[sub_resource type="Animation" id="Animation_u2wdx"]
+resource_name = "SwingRIGHT"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.7853981633974483, 0.7853981633974483]
+}
+
+[sub_resource type="Animation" id="Animation_03gbu"]
+resource_name = "SwingUP"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-2.356194490192345, -0.7853981633974483]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gs4nl"]
+_data = {
+&"RESET": SubResource("Animation_traxp"),
+&"SwingDOWN": SubResource("Animation_yskgf"),
+&"SwingLEFT": SubResource("Animation_gs4nl"),
+&"SwingRIGHT": SubResource("Animation_u2wdx"),
+&"SwingUP": SubResource("Animation_03gbu")
+}
+
+[node name="Weapon" type="Node2D" unique_id=1338032453 node_paths=PackedStringArray("WeaponSprite", "hitBox", "AnimPlayer")]
 script = ExtResource("1_traxp")
 WeaponSprite = NodePath("WeaponSprite")
 hitBox = NodePath("Area2D")
+AnimPlayer = NodePath("AnimationPlayer")
 
 [node name="WeaponSprite" type="RichTextLabel" parent="." unique_id=971676442]
 anchors_preset = 10
@@ -34,3 +123,6 @@ vertical_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1366412393]
 shape = SubResource("RectangleShape2D_fyppt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1046259152]
+libraries/ = SubResource("AnimationLibrary_gs4nl")

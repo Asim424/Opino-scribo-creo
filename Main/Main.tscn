@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://dismfahxdsqkk" path="res://addons/GodotASCIIToolKit/Resources/Godot/Themes/ascii_label_theme.tres" id="1_83ytx"]
 [ext_resource type="Script" uid="uid://d0m55i184kiur" path="res://Main/TileGen/TileTypes/player.gd" id="2_amygn"]
 [ext_resource type="PackedScene" uid="uid://damki1brhvp1w" path="res://Main/Combat/Weapon/weapon.tscn" id="3_amygn"]
+[ext_resource type="PackedScene" uid="uid://brldrj2ucyctu" path="res://crafting/CraftingMenu.tscn" id="4_ps1la"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
 bg_color = Color(0, 0, 0, 1)
@@ -59,3 +60,6 @@ script = ExtResource("2_amygn")
 
 [node name="Weapon" parent="." unique_id=1379525267 node_paths=PackedStringArray("playerParent") instance=ExtResource("3_amygn")]
 playerParent = NodePath("../Control/RichTextLabel")
+
+[node name="CraftingMenu" parent="." unique_id=908253453 instance=ExtResource("4_ps1la")]
+layout_mode = 1
