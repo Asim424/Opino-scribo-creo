@@ -65,5 +65,6 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if AnimPlayer.is_playing() == false:
 		self.hide()
+	print(playerParent.position.y)
 	self.position.x = playerParent.position.x + (playerParent.room_position[1]+.5)*13*3
 	self.position.y = playerParent.position.y + (playerParent.room_position[0]+.75)*13*3

@@ -23,12 +23,23 @@ func get_map() -> Array:
 func get_room() -> Array:
 	return map[map_position[1]][map_position[0]]
 
+func room_clear():
+	#for i in range(map[map_position[1]][map_position[0]].size()):
+		#for j in range(map[map_position[1]][map_position[0]][i].size()):
+			#if map[map_position[1]][map_position[0]][i][j] is basicE:
+				#return false
+	return true
+
 func move_enemies():
 	for i in range(map[map_position[1]][map_position[0]].size()):
 		for j in range(map[map_position[1]][map_position[0]][i].size()):
 			if map[map_position[1]][map_position[0]][i][j] is basicE:
 				map[map_position[1]][map_position[0]][i][j].map = map
 				map[map_position[1]][map_position[0]][i][j].move_enemies(room_position)
+	for i in range(map[map_position[1]][map_position[0]].size()):
+		for j in range(map[map_position[1]][map_position[0]][i].size()):
+			if map[map_position[1]][map_position[0]][i][j] is basicE:
+				map[map_position[1]][map_position[0]][i][j].alr_moved = false
 
 func move(direction : String):
 	var x = 0
@@ -49,14 +60,15 @@ func move(direction : String):
 			room_position[0] += y	#set player position
 			room_position[1] += x
 	elif get_room()[room_position[0]+y][room_position[1]+x] is door:		#doors
-		var temp  = get_room()[room_position[0]+y][room_position[1]+x].copy()	#store door
-		get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with tile it was standing on
-		map_position = temp.map_coordinates		#door points to the new position for the player
-		room_position = temp.room_coordinates
-		tile_below = get_room()[room_position[0]][room_position[1]]		#store next tile
-		get_room()[room_position[0]][room_position[1]] = self		#move player
-		print_room()	#then show the room
-		return
+		if room_clear():
+			var temp  = get_room()[room_position[0]+y][room_position[1]+x].copy()	#store door
+			get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with tile it was standing on
+			map_position = temp.map_coordinates		#door points to the new position for the player
+			room_position = temp.room_coordinates
+			tile_below = get_room()[room_position[0]][room_position[1]]		#store next tile
+			get_room()[room_position[0]][room_position[1]] = self		#move player
+			print_room()	#then show the room
+			return
 	move_enemies()
 	print_room()	#then show the room
 	print_map()
@@ -136,8 +148,8 @@ func print_room():
 	if output_text != " ":
 		semi += "R"
 		output_text = semi +"\n" + output_text
-		self.text = output_text
-
+		self.parse_bbcode(output_text)
+		#self.BbCodeText = output_text
 	else:
 		semi += " "
 	print(semi)

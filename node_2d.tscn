@@ -28,7 +28,8 @@ theme_override_font_sizes/normal_font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_0e48y")
 theme_override_styles/focus = SubResource("StyleBoxFlat_0e48y")
 theme_override_styles/background = SubResource("StyleBoxFlat_0e48y")
-text = "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
+bbcode_enabled = true
+text = "[color=green]ashagsajsghajsgajsg"
 fit_content = true
 autowrap_mode = 0
 vertical_alignment = 1

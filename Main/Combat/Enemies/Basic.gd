@@ -5,9 +5,14 @@ var HP = 10
 var max_HP = 10
 var room_position = [7,8]
 var map_position = [0,0]
-var body = [["┌","┬","┬","┬","┬","┐"], #enemy character 
-	 ["├","┼","\\","┼","/","┤"],
-	 ["└","┴","┴","┴","┴","┘"]]
+var alr_moved = false
+var hitBox : Area2D
+var collision : CollisionShape2D
+var body = [["[color=green]┌","┬","┬","┬","┬","┐[/color]"], #enemy character 
+	 ["[color=green]├","┼","\\","┼","/","┤[/color]"],
+	 ["[color=green]└","┴","┴","┴","┴","┘[/color]"]]
+	
+	
 var tile_below
 var curr_weapon
 var map = []
@@ -21,6 +26,20 @@ func get_body():
 
 func get_map() -> Array:
 	return map
+
+func spawn_hitbox() -> void:
+	hitBox = Area2D.new()
+	collision = CollisionShape2D.new()
+	hitBox.add_child(collision)
+	collision.shape = RectangleShape2D.new()
+	collision.shape.size.x = 13*6
+	collision.shape.size.y = 13*3
+	move_hitbox()
+
+func move_hitbox():
+	hitBox.position.x = 244.5 + (room_position[1]+.5)*13*3
+	hitBox.position.y = 25 + (room_position[0]+.75)*13*3
+
 
 func move_enemies(player_pos : Array):
 	if room_position[0] < player_pos[0]:
@@ -54,13 +73,15 @@ func move(direction : String):
 		"E": x = 1
 		"W": x = -1
 	if get_room()[room_position[0]+y][room_position[1]+x] is Basic_types:	#walls, floors, nothing special
-		print(get_room()[room_position[0]+y][room_position[1]+x].type)
+		#print(get_room()[room_position[0]+y][room_position[1]+x].type)
 		if get_room()[room_position[0]+y][room_position[1]+x].type in [1,5]:	#check if its a wall
 			return
 		else:
-			get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with the tile its standing on rn
-			tile_below = get_room()[room_position[0]+y][room_position[1]+x]		#stores next tile 
-			get_room()[room_position[0]+y][room_position[1]+x] = self		#replaces next tile with player
-			room_position[0] += y	#set player position
-			room_position[1] += x
+			if not alr_moved:
+				alr_moved = true
+				get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with the tile its standing on rn
+				tile_below = get_room()[room_position[0]+y][room_position[1]+x]		#stores next tile 
+				get_room()[room_position[0]+y][room_position[1]+x] = self		#replaces next tile with player
+				room_position[0] += y	#set player position
+				room_position[1] += x
 	

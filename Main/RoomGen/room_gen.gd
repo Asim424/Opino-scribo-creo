@@ -89,11 +89,12 @@ func instantiate_room(room, coords = []):
 						row.append(Shop)
 				else:
 					var temp = randi_range(0,100)
-					if temp <= 2 and cell.type in [2,3,4,6]:
+					if temp <= 1 and cell.type in [2,3,4,6]:
 						var enemy = basicE.new()
 						enemy.room_position = [y,x]
 						enemy.map_position = coords.duplicate()
 						enemy.tile_below = cell
+						enemy.spawn_hitbox()
 						row.append(enemy)
 					else:
 						row.append(cell)
