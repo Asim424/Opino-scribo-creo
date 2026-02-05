@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://brldrj2ucyctu" path="res://crafting/CraftingMenu.tscn" id="4_ps1la"]
 [ext_resource type="Script" uid="uid://b78hq0iexkuq2" path="res://Main/minimap.gd" id="4_u2i7p"]
 [ext_resource type="Script" uid="uid://br0dwp6wtctf3" path="res://Main/coin_counter.gd" id="5_hh5pf"]
+[ext_resource type="PackedScene" uid="uid://ctjngetede5t" path="res://StartOfGameMenu/tut.tscn" id="8_qg80j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
 bg_color = Color(0, 0, 0, 1)
@@ -115,3 +116,6 @@ CraftingMenu = NodePath("../CraftingMenu")
 layout_mode = 1
 Weapon = NodePath("../Weapon")
 player = NodePath("../Control/RichTextLabel")
+
+[node name="Control2" parent="." unique_id=1216531585 instance=ExtResource("8_qg80j")]
+layout_mode = 1

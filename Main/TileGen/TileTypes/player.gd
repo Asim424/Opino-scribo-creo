@@ -195,16 +195,10 @@ func print_map():
 
 				
 func print_room():
-	var semi = ""
-	var output_text = room_to_ascii(map[map_position[1]][map_position[0]])
+	var output_text = "\n" + room_to_ascii(map[map_position[1]][map_position[0]])
 	if output_text != " ":
-		semi += "R"
-		output_text = semi +"\n" + output_text
 		self.parse_bbcode(output_text)
-		#self.BbCodeText = output_text
-	else:
-		semi += " "
-	semi += "\n"
+
 
 func print_coins():
 	return "coins: "+str(coins)
