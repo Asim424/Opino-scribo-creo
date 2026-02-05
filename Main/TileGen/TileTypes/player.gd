@@ -61,7 +61,6 @@ func move(direction : String):
 		"E": x = 1
 		"W": x = -1
 	if get_room()[room_position[0]+y][room_position[1]+x] is Basic_types:	#walls, floors, nothing special
-		print(get_room()[room_position[0]+y][room_position[1]+x].type)
 		if get_room()[room_position[0]+y][room_position[1]+x].type in [1,5]:	#check if its a wall
 			return
 		else:
@@ -85,6 +84,14 @@ func move(direction : String):
 		crafting.Inventory[get_room()[room_position[0]+y][room_position[1]+x].contents.to_upper()] += 1
 		get_room()[room_position[0]+y][room_position[1]+x] = Basic_types.new()
 		get_room()[room_position[0]+y][room_position[1]+x].set_body(2)
+	elif get_room()[room_position[0]+y][room_position[1]+x] is spike:
+		HP -= get_room()[room_position[0]+y][room_position[1]+x].damage
+		get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with the tile its standing on rn
+		tile_below = get_room()[room_position[0]+y][room_position[1]+x]		#stores next tile 
+		get_room()[room_position[0]+y][room_position[1]+x] = self		#replaces next tile with player
+		room_position[0] += y	#set player position
+		room_position[1] += x
+		print(HP)
 			
 	move_enemies()
 	print_room()	#then show the room
@@ -157,11 +164,7 @@ func print_map():
 		temp += "\n"
 	print(temp)
 	
-func print_doors():
-	for i in range(map[map_position[1]][map_position[0]].size()):
-		for j in range(map[map_position[1]][map_position[0]][i].size()):
-			if map[map_position[1]][map_position[0]][i][j] is door:
-				print(map[map_position[1]][map_position[0]][i][j].room_coordinates)
+
 				
 func print_room():
 	var semi = ""
@@ -173,7 +176,6 @@ func print_room():
 		#self.BbCodeText = output_text
 	else:
 		semi += " "
-	print(semi)
 	semi += "\n"
 	
 func room_to_ascii(room) -> String:
