@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://damki1brhvp1w" path="res://Main/Combat/Weapon/weapon.tscn" id="3_amygn"]
 [ext_resource type="Script" uid="uid://txytp8yjsjyg" path="res://Main/Combat/Enemies/Basic.gd" id="4_hh5pf"]
 [ext_resource type="PackedScene" uid="uid://brldrj2ucyctu" path="res://crafting/CraftingMenu.tscn" id="4_ps1la"]
+[ext_resource type="PackedScene" uid="uid://ctjngetede5t" path="res://StartOfGameMenu/tut.tscn" id="6_u2i7p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
 bg_color = Color(0, 0, 0, 1)
@@ -73,3 +74,6 @@ CraftingMenu = NodePath("../CraftingMenu")
 layout_mode = 1
 Weapon = NodePath("../Weapon")
 player = NodePath("../Control/RichTextLabel")
+
+[node name="StartMenu" parent="." unique_id=1216531585 instance=ExtResource("6_u2i7p")]
+layout_mode = 1
