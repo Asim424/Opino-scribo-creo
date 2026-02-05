@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://ctjngetede5t"]
+
+[ext_resource type="Script" uid="uid://b4kbt787if30r" path="res://StartOfGameMenu/tut.gd" id="1_o8tcy"]
+[ext_resource type="Texture2D" uid="uid://b2bnp7kfmo5st" path="res://StartOfGameMenu/Pictures/New_Project_4_2.png" id="1_vaxnq"]
+[ext_resource type="Texture2D" uid="uid://dvb23b0jtea60" path="res://StartOfGameMenu/Pictures/New_Project_5_2.png" id="2_jk1w6"]
+[ext_resource type="Texture2D" uid="uid://b5mnf8bax5cje" path="res://StartOfGameMenu/Pictures/New_Project_5_4.png" id="3_nw3va"]
+[ext_resource type="Texture2D" uid="uid://dodrnkdh5alnm" path="res://StartOfGameMenu/Pictures/New_Project_5_5_1.png" id="4_xvwwd"]
+
+[node name="Control" type="Control" unique_id=1216531585 node_paths=PackedStringArray("sprite", "img1", "img2", "img3")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o8tcy")
+sprite = NodePath("Panel/Sprite2D4")
+img1 = NodePath("Panel/Sprite2D3")
+img2 = NodePath("Panel/Sprite2D2")
+img3 = NodePath("Panel/Sprite2D")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1807800708]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="." unique_id=1671254500]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel" unique_id=556557846]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_jk1w6")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Panel" unique_id=1246715087]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_nw3va")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Panel" unique_id=86160640]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_xvwwd")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Panel" unique_id=903533944]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_vaxnq")
