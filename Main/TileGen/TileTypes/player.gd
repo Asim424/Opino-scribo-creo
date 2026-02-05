@@ -108,9 +108,13 @@ func move(direction : String):
 	print_room()	#then show the room
 	print_map()
 	
+func print_hp():
+	return "HP: "+ str(HP)
+	
 func damage(ouch):
 	HP -= ouch
-	print(HP)	#then show the room
+	if HP <= 0:
+		get_tree().quit()#then show the room
 	
 	if HP <= 0:
 		print("death")
@@ -189,7 +193,7 @@ func print_map():
 			else:
 				temp += " "
 		temp += "\n"
-	print(temp)
+	#print(temp)
 	return temp
 	
 

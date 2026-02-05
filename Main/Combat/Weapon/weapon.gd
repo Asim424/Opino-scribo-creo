@@ -1,13 +1,15 @@
 extends Node2D
 
+
+
 class_name Weapon
 
-@export var WeaponSprite : RichTextLabel
-@export var hitBox : Area2D
-@export var hitBoxBounds : CollisionShape2D
-@export var playerParent : RichTextLabel
-@export var AnimPlayer : AnimationPlayer
-@export var CraftingMenu : Crafting
+@onready var WeaponSprite : RichTextLabel = $WeaponSprite
+@onready var hitBox : Area2D = $WeaponSprite/Area2D
+@onready var hitBoxBounds : CollisionShape2D = $WeaponSprite/Area2D/CollisionShape2D
+@onready var playerParent : RichTextLabel = $"../Control/RichTextLabel"
+@onready var AnimPlayer : AnimationPlayer = $AnimationPlayer
+@onready var CraftingMenu : Crafting = $"../CraftingMenu"
 var damage = 0
 var weaponInactive : bool = true
 
@@ -22,21 +24,25 @@ func updateText() -> void:
 	var lines = 0
 	for i in CraftingMenu.Text:
 		var current_line : String = ""
+		var spaceless = ""
 		for j in i:
 			if not (j == '█' 
 			or j == '░' 
 			or j == '∩'):
 				current_line+=j
-				if current_line.length() > longestLine.length():
-					var spaceless = current_line.remove_chars(" ")
+				spaceless = current_line.remove_chars(" ")
+				if spaceless.length() > longestLine.length():
+					print(spaceless)
 					longestLine = spaceless
-		var spaceless = current_line.remove_chars(" ")
+		spaceless = current_line.remove_chars(" ")
 		if spaceless != "":
 			text += current_line+"\n"
 			lines += 1
 	WeaponSprite.text = text
 	hitBoxBounds.shape.size.x = longestLine.length()*16
 	hitBoxBounds.shape.size.y = lines*16
+	print(longestLine.length())
+	print(lines)
 	hitBox.position.x = longestLine.length()*8
 	hitBox.position.y = lines*8
 	print(longestLine + " : " + str(lines))

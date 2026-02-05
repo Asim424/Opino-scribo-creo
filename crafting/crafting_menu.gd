@@ -2,10 +2,12 @@ extends Control
 
 class_name Crafting
 
-@export var PlayerBox : TextEdit
-@export var Weapon : Weapon
-@export var player : player
+@onready var PlayerBox : TextEdit = $Control3/PlayerBoxAlt
+@onready var Weapon : Weapon = $"../Weapon"
+@onready var player : player = $"../Control/RichTextLabel"
 
+func _init():
+	set_process(false)
 var word_dict = ["hello", "scrabble", "bat"]
 
 var special_dict = []
@@ -106,6 +108,8 @@ func _ready() -> void:
 	output_text.capitalize()
 	PlayerBox.text = output_text
 	LoadInv()
+	set_process(false)
+	
 
 func reload_text():
 	for i in range(Unlocked.size()): # Grid Row (0 to 2)
@@ -148,10 +152,10 @@ var showing = false
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed():
 		if event.as_text().to_lower() == "tab":
-			
 			if showing:
 				self.hide()
 				self.z_index=-1
+				reload_text()
 				Weapon.updateText()
 				showing = false
 			else:
@@ -222,13 +226,19 @@ func _on_gui_input(event: InputEvent) -> void:
 				PlayerBox.set_caret_column(PlayerBox.get_caret_column()-1)
 			KEY_RIGHT:
 				PlayerBox.set_caret_column(PlayerBox.get_caret_column()+1)
-		if event.keycode == KEY_SPACE and player.coins >= 15*int(PlayerBox.get_caret_column()/3):
+		if event.keycode == KEY_SPACE and player.coins >= 15*(int(PlayerBox.get_caret_column()/3)+1):
 			print(Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)])
 			if Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)] == L:
 				Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)] = U
-				player.coins -= 15*int(PlayerBox.get_caret_column()/3)
+				player.coins -= 15*(int(PlayerBox.get_caret_column()/3)+1)
 				var full_text = ""
 				reload_text()
+				for i in Text:
+					var current_line = ""
+					for j in i:
+						current_line += j
+					full_text += current_line + "\n"
+					PlayerBox.text = full_text
 		accept_event()
 		LoadInv()
 		get_words_on_board()
@@ -311,8 +321,12 @@ func get_letters_on_board():
 func validate_words(words):
 	var valid_found = []
 	for word in words:
-		if word_dict.has(word.to_lower()):
-			valid_found.append(word)
+		print(words)
+		for real_word in word_dict:
+			if len(word)>=3:
+				if word.to_lower().contains(real_word):
+					valid_found.append(real_word.to_upper())
+					print(real_word)
 	return valid_found
 	
 

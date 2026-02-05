@@ -12,7 +12,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1scea"]
 gradient = SubResource("Gradient_pdcgn")
 
-[node name="CraftingMenu" type="Control" unique_id=908253453 node_paths=PackedStringArray("PlayerBox")]
+[node name="CraftingMenu" type="Control" unique_id=908253453]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +20,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mlhx7")
-PlayerBox = NodePath("Control3/PlayerBoxAlt")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1113890562]
 position = Vector2(2054, 1211)

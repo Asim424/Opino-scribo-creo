@@ -141,8 +141,13 @@ func generate_map(parent):
 	if shop_loc == [-1,-1]:
 		if map[longest[0]][-1] is Array:
 			map[longest[0]].append(" ")
-		shop_loc = [map[longest[0]].size()-1,longest[0]]
-		map[longest[0]][-1] = room_generator.gen_room(2,parent,["W"],shop_loc,floor_num)
+		var last_room = 0
+		for i in range(map[longest[0]].size()):
+			if i > 0:
+				if map[longest[0]][i-1] is Array:
+					last_room = i
+		shop_loc = [last_room,longest[0]]
+		map[longest[0]][last_room] = room_generator.gen_room(2,parent,["W"],shop_loc,floor_num)
 	
 	for x in range(len(map[0])):
 		if map[0][x] is Array:
