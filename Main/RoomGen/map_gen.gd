@@ -95,7 +95,7 @@ func generate_map():
 			temp.resize(x+1)
 			temp.fill(" ")
 			treasure_loc = [len(map),x]
-			temp[-1] = room_generator.gen_room(1,[],treasure_loc)
+			temp[-1] = room_generator.gen_room(1,[],[x,len(map)])
 			map.append(temp)
 
 			
@@ -114,17 +114,17 @@ func generate_map():
 			longest[1] = potential
 		potential = 0
 	
-	for i in range(1,len(map[longest[0]])-1):
-		if map[longest[0]][i] is Array:
-			if map[longest[0]][i+1] is Array:
-				entrances.append("E")
-			if map[longest[0]][i-1] is Array:
-				entrances.append("W")
-			if randi_range(0,10) < 3:
-				shop_loc = [i,longest[0]]
-				map[longest[0]][i] = room_generator.gen_room(2,entrances,shop_loc)
-				break
-			entrances = []
+	#for i in range(1,len(map[longest[0]])-1):
+		#if map[longest[0]][i] is Array:
+			#if map[longest[0]][i+1] is Array:
+				#entrances.append("E")
+			#if map[longest[0]][i-1] is Array:
+				#entrances.append("W")
+			#if randi_range(0,10) < 3:
+				#shop_loc = [i,longest[0]]
+				#map[longest[0]][i] = room_generator.gen_room(2,entrances,shop_loc)
+				#break
+			#entrances = []
 			
 	if shop_loc == [-1,-1]:
 		if map[longest[0]][-1] is Array:

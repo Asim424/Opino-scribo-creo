@@ -60,9 +60,9 @@ func _input(event: InputEvent) -> void:
 func _ready() -> void:
 	self.hide()
 	content = content.remove_chars(" ")
-	content = content.replace("\n", "")
-	word_dict = content.split("\r")
-	
+	content = content.replace("\r", "")
+	word_dict = content.split("\n")
+	#print(word_dict)
 	#special_content = content.remove_chars(" ")
 	#special_content = content.replace("\n", "")
 	#special_dict = content.split("\r")
