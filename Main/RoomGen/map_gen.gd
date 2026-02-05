@@ -17,6 +17,15 @@ func get_map():
 	return map
 
 func generate_map(parent):
+	rng.randomize()
+	map = [["START"]]
+	player_map = []
+	total_rooms = 9 + floor(floor_num* 10/3)
+	start_loc = [-2,-2]
+	treasure_loc = []
+	shop_loc = [-1,-1]
+	var boss_loc = []
+	room_generator = room_gen.new()
 	map[0][0] = ["START"]
 	var last_location = [0,0]
 	while total_rooms > 0:
@@ -95,8 +104,9 @@ func generate_map(parent):
 			temp.resize(x+1)
 			temp.fill(" ")
 			treasure_loc = [len(map),x]
-			temp[-1] = room_generator.gen_room(1,parent, [],[x,len(map)])
+			temp[-1] = room_generator.gen_room(1,parent, [],[x,len(map)],floor_num)
 			map.append(temp)
+			break
 
 			
 	#add a shop
@@ -130,8 +140,24 @@ func generate_map(parent):
 		if map[longest[0]][-1] is Array:
 			map[longest[0]].append(" ")
 		shop_loc = [map[longest[0]].size()-1,longest[0]]
-		map[longest[0]][-1] = room_generator.gen_room(2,parent,["W"],shop_loc)
-				
+		map[longest[0]][-1] = room_generator.gen_room(2,parent,["W"],shop_loc,floor_num)
+	
+	for x in range(len(map[0])):
+		if map[0][x] is Array:
+			var temp = []
+			temp.resize(x+1)
+			temp.fill(" ")
+			boss_loc = [0,x]
+			temp[0] = room_generator.gen_room(3 ,parent, ["S"],[x,0],floor_num)
+			temp[0][7][8] = boss.new()
+			temp[0][7][8].HP = 50*floor_num
+			temp[0][7][8].spawn_hitbox(parent)
+			treasure_loc[0] += 1
+			shop_loc[1] += 1
+			
+			map.insert(0,temp)
+			break
+		
 	for i in range(len(map)):
 		for j in range(len(map[i])):
 			entrances = []
@@ -154,8 +180,10 @@ func generate_map(parent):
 			if j+1 < len(map[i]):
 				if map[i][j+1] is Array:
 					entrances.append("E")
-			if map[i][j] is Array and [i,j] != treasure_loc and [j,i] != shop_loc:
-				map[i][j] = room_generator.gen_room(3,parent,entrances, [j,i]).duplicate(true)
+			if map[i][j] is Array and [i,j] != treasure_loc and [j,i] != shop_loc and [i,j] != boss_loc:
+				map[i][j] = room_generator.gen_room(3,parent,entrances, [j,i],floor_num).duplicate(true)
+			else:
+				print(i,j,treasure_loc,shop_loc,boss_loc,map[i][j])
 	print("player makes issues")
 	player_map = start_loc.duplicate()
 

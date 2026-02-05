@@ -13,11 +13,14 @@ func get_body():
 	return body
 
 
-func set_inside():
+func _init():
 	contents = randLetter.get_letter()
 	L = contents
 	if L in  ["j","k","q","x","z"," "]:
 		price = 30
+	body = [["▓","▓","▓","▓","▓","▓"], #item for sale
+	 ["▓","▓", L , L ,"▓","▓"], # shop gives you a choice of one of two items
+	 ["▓","▓","▓","▓","▓","▓"]] #dynamically replace bottom row with price
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.

@@ -30,19 +30,19 @@ func get_room() -> Array:
 func room_clear():
 	for i in range(map[map_position[1]][map_position[0]].size()):
 		for j in range(map[map_position[1]][map_position[0]][i].size()):
-			if map[map_position[1]][map_position[0]][i][j] is basicE:
+			if map[map_position[1]][map_position[0]][i][j] is basicE or map[map_position[1]][map_position[0]][i][j] is boss:
 				return false
 	return true
 
 func enemies_disable():
 	for i in range(map[map_position[1]][map_position[0]].size()):
 			for j in range(map[map_position[1]][map_position[0]][i].size()):
-				if map[map_position[1]][map_position[0]][i][j] is basicE:
+				if map[map_position[1]][map_position[0]][i][j] is basicE or map[map_position[1]][map_position[0]][i][j] is boss:
 					map[map_position[1]][map_position[0]][i][j].disable_hit()
 func move_enemies():
 	for i in range(map[map_position[1]][map_position[0]].size()):
 		for j in range(map[map_position[1]][map_position[0]][i].size()):
-			if map[map_position[1]][map_position[0]][i][j] is basicE:
+			if map[map_position[1]][map_position[0]][i][j] is basicE or map[map_position[1]][map_position[0]][i][j] is boss:
 				map[map_position[1]][map_position[0]][i][j].map = map
 				map[map_position[1]][map_position[0]][i][j].move_enemies(room_position)
 			elif map[map_position[1]][map_position[0]][i][j] is breakable:
@@ -51,7 +51,7 @@ func move_enemies():
 				
 	for i in range(map[map_position[1]][map_position[0]].size()):
 		for j in range(map[map_position[1]][map_position[0]][i].size()):
-			if map[map_position[1]][map_position[0]][i][j] is basicE:
+			if map[map_position[1]][map_position[0]][i][j] is basicE or map[map_position[1]][map_position[0]][i][j] is boss:
 				map[map_position[1]][map_position[0]][i][j].move_hitbox()
 				map[map_position[1]][map_position[0]][i][j].alr_moved = false
 
@@ -99,13 +99,19 @@ func move(direction : String):
 		get_room()[room_position[0]+y][room_position[1]+x] = self		#replaces next tile with player
 		room_position[0] += y	#set player position
 		room_position[1] += x
-			
+	elif get_room()[room_position[0]+y][room_position[1]+x] is trap:
+		map_generator.floor_num += 1
+		room_position = [7,8]
+		reset()
+		return
 	move_enemies()
 	print_room()	#then show the room
 	print_map()
 	
 func damage(ouch):
 	HP -= ouch
+	print(HP)	#then show the room
+	
 	if HP <= 0:
 		print("death")
 	#if tile_below is door:
@@ -119,9 +125,11 @@ func damage(ouch):
 	#delete this player object in case it is still active to avoid memory leak
 
 func attack(direction : String):
-	move_enemies()
-	
+	await get_tree().create_timer(0.5).timeout
 	print_room()	#then show the room
+	move_enemies()
+	print_room()	#then show the room
+	
 	#print_map()
 	pass
 	#spawn new text box with the hitboxes
@@ -130,6 +138,15 @@ func attack(direction : String):
 	#delete textbox once animation is complete
 	
 # Called when the node enters the scene tree for the first time.
+
+func reset():
+	map_generator.generate_map(father)
+	map = map_generator.map.duplicate(true)
+	map_position = map_generator.player_map.duplicate()
+	tile_below = map[map_position[1]][map_position[0]][7][8]
+	map[map_position[1]][map_position[0]][7][8] = self
+	print_room()
+	
 func _init() -> void:
 	map_generator.generate_map(father)
 	map = map_generator.map.duplicate(true)

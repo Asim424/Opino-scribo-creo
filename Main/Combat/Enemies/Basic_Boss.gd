@@ -1,19 +1,20 @@
 extends Node
-
-class_name basicE
-var HP = 10
-var max_HP = 10
+class_name boss
+var body = [
+['[color=red]▀','╦','╦','╦','╦','▀[/color]'],
+['[color=red]▄','▼','▼','▼','▼','▄[/color]'],
+['[color=red]╠','▲','▲','▲','▲','╣[/color]']
+]
+var HP = 50
+var max_HP = 50
 var room_position = [7,8]
 var map_position = [0,0]
 var alr_moved = false
 var area
 var col : CollisionShape2D
 var parent
-var body = [["[color=green]┌","┬","┬","┬","┬","┐[/color]"], #enemy character 
-	 ["[color=green]├","┼","\\","┼","/","┤[/color]"],
-	 ["[color=green]└","┴","┴","┴","┴","┘[/color]"]]
 @export var room : RichTextLabel
-var damage = 1
+var damage = 2
 var tile_below
 var curr_weapon
 var map = []
