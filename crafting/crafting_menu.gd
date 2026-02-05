@@ -4,6 +4,7 @@ class_name Crafting
 
 @export var PlayerBox : TextEdit
 @export var Weapon : Weapon
+@export var player : player
 
 var word_dict = ["hello", "scrabble", "bat"]
 
@@ -106,7 +107,18 @@ func _ready() -> void:
 	PlayerBox.text = output_text
 	LoadInv()
 
-
+func reload_text():
+	Text = []
+	for major_row in Unlocked:
+		for row_idx in range(3):
+			var full_line = [] 
+			
+			for block in major_row:
+				for char in block[row_idx]:
+					full_line.append(char)
+			
+			Text.append(full_line)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	_on_text_changed()
@@ -127,7 +139,6 @@ func _on_text_changed():
 var showing = false
 
 func _on_gui_input(event: InputEvent) -> void:
-	
 	if event is InputEventKey and event.is_pressed():
 		if event.as_text().to_lower() == "tab":
 			
@@ -204,6 +215,18 @@ func _on_gui_input(event: InputEvent) -> void:
 				PlayerBox.set_caret_column(PlayerBox.get_caret_column()-1)
 			KEY_RIGHT:
 				PlayerBox.set_caret_column(PlayerBox.get_caret_column()+1)
+		if event.keycode == KEY_SPACE and player.coins >= 15*int(PlayerBox.get_caret_column()/3):
+			print(Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)])
+			if Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)] == L:
+				Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)] = U
+				var full_text = ""
+				reload_text()
+				for i in Text:
+					var current_line = ""
+					for j in i:
+						current_line += j
+					full_text += current_line + "\n"
+					PlayerBox.text = full_text
 		accept_event()
 		LoadInv()
 		get_words_on_board()

@@ -116,6 +116,8 @@ Anvil
 	Words are worth a greater Damage value!
 
 	Words can be made left to right and up to down.
+
+	Press spacebar in an area you havent unlocked to unlock it (15 coins needed)
 "
 script = ExtResource("4_ev7a0")
 
