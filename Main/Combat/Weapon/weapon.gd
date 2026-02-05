@@ -46,24 +46,29 @@ func _input(event: InputEvent) -> void:
 		match event.keycode:
 				KEY_UP:
 					self.show()
+					weaponInactive = false
 					AnimPlayer.play("SwingUP")
 
 				KEY_DOWN:
 					self.show()
+					weaponInactive = false
 					AnimPlayer.play("SwingDOWN")
 
 				KEY_LEFT:
 					self.show()
+					weaponInactive = false
 					AnimPlayer.play("SwingLEFT")
 
 				KEY_RIGHT:
 					self.show()
+					weaponInactive = false
 					AnimPlayer.play("SwingRIGHT")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if AnimPlayer.is_playing() == false:
+		weaponInactive = true
 		self.hide()
 	print(playerParent.position.y)
 	self.position.x = playerParent.position.x + (playerParent.room_position[1]+.5)*13*3

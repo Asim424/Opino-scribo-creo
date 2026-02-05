@@ -63,7 +63,6 @@ func _ready() -> void:
 	content = content.remove_chars(" ")
 	content = content.replace("\r", "")
 	word_dict = content.split("\n")
-	
 	#special_content = content.remove_chars(" ")
 	#special_content = content.replace("\n", "")
 	#special_dict = content.split("\r")
