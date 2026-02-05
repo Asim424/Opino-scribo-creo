@@ -75,7 +75,11 @@ func move_hitbox():
 	area.position.x = (room_position[1]+.5)*13*3
 	area.position.y = (room_position[0]+.75)*13*3
 	enable_hit()
-
+	
+func reconnect_hitbox():
+	if area:
+		if area.get_parent() != self:
+			self.add_child(area)
 
 
 func move_enemies(player_pos : Array):
@@ -117,11 +121,11 @@ func move(direction : String):
 		if get_room()[room_position[0]+y][room_position[1]+x].type in [1,5]:	#check if its a wall
 			return
 		else:
-			if not alr_moved:
-				alr_moved = true
-				get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with the tile its standing on rn
-				tile_below = get_room()[room_position[0]+y][room_position[1]+x]		#stores next tile 
-				get_room()[room_position[0]+y][room_position[1]+x] = self		#replaces next tile with player
-				room_position[0] += y	#set player position
-				room_position[1] += x
+			alr_moved = true
+			get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with the tile its standing on rn
+			tile_below = get_room()[room_position[0]+y][room_position[1]+x]		#stores next tile 
+			get_room()[room_position[0]+y][room_position[1]+x] = self		#replaces next tile with player
+			room_position[0] += y	#set player position
+			room_position[1] += x
+			move_hitbox()
 	

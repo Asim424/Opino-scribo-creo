@@ -31,6 +31,7 @@ func generate_map(parent):
 	while total_rooms > 0:
 		total_rooms -= 1
 		var random = rng.randi_range(0,3)
+		var stuck = 0
 		match random:
 			0:
 				if last_location[1]-1 >= 0:
@@ -38,8 +39,11 @@ func generate_map(parent):
 						map[last_location[1]-1][last_location[0]] = [""]
 						last_location[1] -= 1
 					else:
-						total_rooms += 1
-						last_location[1] -= 1
+						stuck +=1
+						if stuck == 4:
+							map[last_location[1]][last_location[0]] = [""]
+							last_location[1] -= 1
+							stuck = 0
 				else:
 					var temp = [""]
 					temp.resize(len(map[0]))
@@ -54,8 +58,11 @@ func generate_map(parent):
 						map[last_location[1]+1][last_location[0]] = [""]
 						last_location[1] += 1
 					else:
-						last_location[1] += 1
-						total_rooms += 1
+						stuck +=1
+						if stuck == 4:
+							map[last_location[1]][last_location[0]] = [""]
+							last_location[1] += 1
+							stuck = 0
 				else:
 					var temp = [""]
 					temp.resize(len(map[last_location[1]]))
@@ -69,8 +76,11 @@ func generate_map(parent):
 						map[last_location[1]][last_location[0]+1] = [""]
 						last_location[0] += 1
 					else:
-						last_location[0] += 1
-						total_rooms += 1
+						stuck +=1 
+						if stuck == 4:
+							map[last_location[1]][last_location[0]] = [""]
+							last_location[0] += 1
+							stuck = 0
 				else:
 					for i in range(map.size()):
 						map[i].append(" ")
@@ -85,8 +95,11 @@ func generate_map(parent):
 						last_location[0] -= 1
 						
 					else:
-						last_location[0] -= 1
-						total_rooms += 1
+						stuck += 1
+						if stuck == 4:
+							last_location[0] -= 1
+							map[last_location[1]][last_location[0]] = [""]
+							stuck = 0
 				else:
 					for i in range(map.size()):
 						map[i].insert(0," ")
@@ -98,7 +111,7 @@ func generate_map(parent):
 		pass
 
 	#add a treasure room
-	for x in range(len(map[-1])-1,0,-1):
+	for x in range(len(map[-1])-1,-1,-1):
 		if map[-1][x] is Array:
 			var temp = []
 			temp.resize(x+1)
@@ -124,17 +137,6 @@ func generate_map(parent):
 			longest[1] = potential
 		potential = 0
 	
-	#for i in range(1,len(map[longest[0]])-1):
-		#if map[longest[0]][i] is Array:
-			#if map[longest[0]][i+1] is Array:
-				#entrances.append("E")
-			#if map[longest[0]][i-1] is Array:
-				#entrances.append("W")
-			#if randi_range(0,10) < 3:
-				#shop_loc = [i,longest[0]]
-				#map[longest[0]][i] = room_generator.gen_room(2,entrances,shop_loc)
-				#break
-			#entrances = []
 			
 	if shop_loc == [-1,-1]:
 		if map[longest[0]][-1] is Array:
@@ -148,10 +150,17 @@ func generate_map(parent):
 			temp.resize(x+1)
 			temp.fill(" ")
 			boss_loc = [0,x]
-			temp[0] = room_generator.gen_room(3 ,parent, ["S"],[x,0],floor_num)
-			temp[0][7][8] = boss.new()
-			temp[0][7][8].HP = 50*floor_num
-			temp[0][7][8].spawn_hitbox(parent)
+			temp[x] = room_generator.gen_room(3 ,parent, ["S"],[x,0],floor_num)
+			temp[x][7][8] = boss.new()
+			var temp2 = Basic_types.new()
+			temp2.set_body(2)
+			temp[x][7][8].tile_below = temp2
+			temp[x][7][8].HP = 50*floor_num
+			temp[x][7][8].spawn_hitbox(parent)						
+			temp[x][7][8].disable_hit()
+			temp[x][7][8].room_position = [7,8]
+			temp[x][7][8].map_position = boss_loc.duplicate()
+
 			treasure_loc[0] += 1
 			shop_loc[1] += 1
 			
@@ -182,8 +191,9 @@ func generate_map(parent):
 					entrances.append("E")
 			if map[i][j] is Array and [i,j] != treasure_loc and [j,i] != shop_loc and [i,j] != boss_loc:
 				map[i][j] = room_generator.gen_room(3,parent,entrances, [j,i],floor_num).duplicate(true)
-			else:
-				print(i,j,treasure_loc,shop_loc,boss_loc,map[i][j])
+			elif [i,j] == treasure_loc:
+				map[i][j] = room_generator.gen_room(1,parent,entrances, [j,i],floor_num).duplicate(true)
+				
 	print("player makes issues")
 	player_map = start_loc.duplicate()
 
