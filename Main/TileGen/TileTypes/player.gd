@@ -220,7 +220,7 @@ func room_to_ascii(room) -> String:
 		# Determine tallest tile in this row
 		var tile_row_height := 0
 		for tile in room_row:
-			if typeof(tile) != TYPE_INT:
+			if typeof(tile) != TYPE_INT and tile != null:
 				tile_row_height = max(tile_row_height, tile.get_body().size())
 			else:
 				tile_row_height = max(tile_row_height, 1) # placeholder height
@@ -230,7 +230,7 @@ func room_to_ascii(room) -> String:
 			var current_line := ""
 
 			for tile in room_row:
-				if typeof(tile) != TYPE_INT:
+				if typeof(tile) != TYPE_INT and tile != null:
 					var tile_body = tile.get_body()
 					if line_index < tile_body.size():
 						for char in tile_body[line_index]:

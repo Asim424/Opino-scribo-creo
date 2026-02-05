@@ -51,12 +51,13 @@ func take_damage(ouch):
 	HP -=  ouch
 	if HP <= 0:
 		get_room()[room_position[0]][room_position[1]] = tile_below
+		get_room()[7][8] = trap.new()
 		for i in area.get_children():
 			i.queue_free()
 		area.queue_free()
 		self.queue_free()
 		parent.print_room()
-		parent.coins += 1
+		parent.coins += 10
 		print(parent.coins)
 		
 	
@@ -94,7 +95,7 @@ func move_enemies(player_pos : Array):
 			move("E")
 
 func get_room() -> Array:
-	return map[map_position[1]][map_position[0]]
+	return map[map_position[0]][map_position[1]]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
