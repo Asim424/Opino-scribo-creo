@@ -226,14 +226,9 @@ func _on_gui_input(event: InputEvent) -> void:
 			print(Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)])
 			if Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)] == L:
 				Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)] = U
+				player.coins -= 15*int(PlayerBox.get_caret_column()/3)
 				var full_text = ""
 				reload_text()
-				for i in Text:
-					var current_line = ""
-					for j in i:
-						current_line += j
-					full_text += current_line + "\n"
-					PlayerBox.text = full_text
 		accept_event()
 		LoadInv()
 		get_words_on_board()
