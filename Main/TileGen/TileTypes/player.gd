@@ -93,19 +93,21 @@ func move(direction : String):
 		get_room()[room_position[0]+y][room_position[1]+x] = Basic_types.new()
 		get_room()[room_position[0]+y][room_position[1]+x].set_body(2)
 	elif get_room()[room_position[0]+y][room_position[1]+x] is spike:
-		HP -= get_room()[room_position[0]+y][room_position[1]+x].damage
+		damage(get_room()[room_position[0]+y][room_position[1]+x].damage)
 		get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with the tile its standing on rn
 		tile_below = get_room()[room_position[0]+y][room_position[1]+x]		#stores next tile 
 		get_room()[room_position[0]+y][room_position[1]+x] = self		#replaces next tile with player
 		room_position[0] += y	#set player position
 		room_position[1] += x
-		print(HP)
 			
 	move_enemies()
 	print_room()	#then show the room
 	print_map()
 	
-	
+func damage(ouch):
+	HP -= ouch
+	if HP <= 0:
+		print("death")
 	#if tile_below is door:
 		#map_position = tile_below.map_coordinates
 		#room_position = tile_below.room_cordinates

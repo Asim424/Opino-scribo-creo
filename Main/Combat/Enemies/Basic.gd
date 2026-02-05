@@ -1,8 +1,8 @@
 extends Node
 
 class_name basicE
-var HP = 10
-var max_HP = 10
+var HP = 20
+var max_HP = 20
 var room_position = [7,8]
 var map_position = [0,0]
 var alr_moved = false
@@ -86,6 +86,8 @@ func move_enemies(player_pos : Array):
 		move("W")
 	elif room_position[1] < player_pos[1]:
 		move("E")
+	if abs(room_position[1] - player_pos[1]) == 1 or abs(room_position[0] - player_pos[0]) == 1:
+		parent.damage(1) 
 
 func get_room() -> Array:
 	return map[map_position[1]][map_position[0]]
