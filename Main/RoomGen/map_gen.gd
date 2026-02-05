@@ -193,7 +193,9 @@ func generate_map(parent):
 				map[i][j] = room_generator.gen_room(3,parent,entrances, [j,i],floor_num).duplicate(true)
 			elif [i,j] == treasure_loc:
 				map[i][j] = room_generator.gen_room(1,parent,entrances, [j,i],floor_num).duplicate(true)
-				
+			elif [j,i] == shop_loc:
+				map[i][j] = room_generator.gen_room(2,parent,entrances, [j,i],floor_num).duplicate(true)
+			
 	print("player makes issues")
 	player_map = start_loc.duplicate()
 

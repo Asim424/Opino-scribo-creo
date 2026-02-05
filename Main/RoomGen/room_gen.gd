@@ -39,7 +39,7 @@ func add_detail(body):
 						if tile.get_body()[y][x] == " " and rng.randi_range(1, 100) <= 1:
 							tile.get_body()[y][x] = details.pick_random()
 
-func instantiate_room(room, parent, coords, floor_num):
+func instantiate_room(room, parent, coords, floor_num) -> Array:
 	var out = []
 	for y in range(room.size()):
 		var row = []

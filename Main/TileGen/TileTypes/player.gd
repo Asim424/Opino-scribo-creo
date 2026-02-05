@@ -190,6 +190,7 @@ func print_map():
 				temp += " "
 		temp += "\n"
 	print(temp)
+	return temp
 	
 
 				
@@ -204,7 +205,10 @@ func print_room():
 	else:
 		semi += " "
 	semi += "\n"
-	
+
+func print_coins():
+	return "coins: "+str(coins)
+
 func room_to_ascii(room) -> String:
 	if typeof(room) == TYPE_STRING:
 		return room  # Already ASCII
