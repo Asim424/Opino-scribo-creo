@@ -3,6 +3,7 @@ extends Control
 class_name Crafting
 
 @export var PlayerBox : TextEdit
+@export var Weapon : Weapon
 
 var word_dict = ["hello", "scrabble", "bat"]
 
@@ -60,8 +61,8 @@ func _input(event: InputEvent) -> void:
 func _ready() -> void:
 	self.hide()
 	content = content.remove_chars(" ")
-	content = content.replace("\n", "")
-	word_dict = content.split("\r")
+	content = content.replace("\r", "")
+	word_dict = content.split("\n")
 	
 	#special_content = content.remove_chars(" ")
 	#special_content = content.replace("\n", "")
@@ -134,7 +135,7 @@ func _on_gui_input(event: InputEvent) -> void:
 			if showing:
 				self.hide()
 				self.z_index=-1
-				
+				Weapon.updateText()
 				showing = false
 			else:
 				self.show()

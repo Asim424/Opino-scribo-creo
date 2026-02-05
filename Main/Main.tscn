@@ -58,8 +58,10 @@ fit_content = true
 autowrap_mode = 0
 script = ExtResource("2_amygn")
 
-[node name="Weapon" parent="." unique_id=1379525267 node_paths=PackedStringArray("playerParent") instance=ExtResource("3_amygn")]
+[node name="Weapon" parent="." unique_id=1379525267 node_paths=PackedStringArray("playerParent", "CraftingMenu") instance=ExtResource("3_amygn")]
 playerParent = NodePath("../Control/RichTextLabel")
+CraftingMenu = NodePath("../CraftingMenu")
 
-[node name="CraftingMenu" parent="." unique_id=908253453 instance=ExtResource("4_ps1la")]
+[node name="CraftingMenu" parent="." unique_id=908253453 node_paths=PackedStringArray("Weapon") instance=ExtResource("4_ps1la")]
 layout_mode = 1
+Weapon = NodePath("../Weapon")

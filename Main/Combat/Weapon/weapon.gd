@@ -1,16 +1,45 @@
 extends Node2D
 
+class_name Weapon
+
 @export var WeaponSprite : RichTextLabel
 @export var hitBox : Area2D
+@export var hitBoxBounds : CollisionShape2D
 @export var playerParent : RichTextLabel
 @export var AnimPlayer : AnimationPlayer
-
+@export var CraftingMenu : Crafting
 
 var weaponInactive : bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	updateText()
 	self.hide()
+	
+func updateText() -> void:
+	var text = ""
+	var longestLine = ""
+	var lines = 0
+	for i in CraftingMenu.Text:
+		var current_line : String = ""
+		for j in i:
+			if not (j == '█' 
+			or j == '░' 
+			or j == '∩'):
+				current_line+=j
+				if current_line.length() > longestLine.length():
+					var spaceless = current_line.remove_chars(" ")
+					longestLine = spaceless
+		var spaceless = current_line.remove_chars(" ")
+		if spaceless != "":
+			text += current_line+"\n"
+			lines += 1
+	WeaponSprite.text = text
+	hitBoxBounds.shape.size.x = longestLine.length()*16
+	hitBoxBounds.shape.size.y = lines*16
+	hitBox.position.x = longestLine.length()*12
+	hitBox.position.y = lines*12
+	print(longestLine + " : " + str(lines))
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
