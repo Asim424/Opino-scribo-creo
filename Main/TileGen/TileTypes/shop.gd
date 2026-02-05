@@ -1,7 +1,8 @@
 extends Node2D
 class_name shop
 
-var contents := rand_letter.new()
+var randLetter := rand_letter.new()
+var contents : String
 var price = 15
 var L = "a"
 var body = [["▓","▓","▓","▓","▓","▓"], #item for sale
@@ -11,8 +12,10 @@ var body = [["▓","▓","▓","▓","▓","▓"], #item for sale
 func get_body():
 	return body
 
+
 func set_inside():
-	L = contents.get_letter()
+	contents = randLetter.get_letter()
+	L = contents
 	if L in  ["j","k","q","x","z"," "]:
 		price = 30
 # Called when the node enters the scene tree for the first time.

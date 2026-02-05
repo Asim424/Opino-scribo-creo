@@ -84,6 +84,11 @@ func move(direction : String):
 		crafting.Inventory[get_room()[room_position[0]+y][room_position[1]+x].contents.to_upper()] += 1
 		get_room()[room_position[0]+y][room_position[1]+x] = Basic_types.new()
 		get_room()[room_position[0]+y][room_position[1]+x].set_body(2)
+	elif get_room()[room_position[0]+y][room_position[1]+x] is shop and get_room()[room_position[0]+y][room_position[1]+x].price <= coins:
+		crafting.Inventory[get_room()[room_position[0]+y][room_position[1]+x].contents.to_upper()] += 1
+		coins -= get_room()[room_position[0]+y][room_position[1]+x].price
+		get_room()[room_position[0]+y][room_position[1]+x] = Basic_types.new()
+		get_room()[room_position[0]+y][room_position[1]+x].set_body(2)
 	elif get_room()[room_position[0]+y][room_position[1]+x] is spike:
 		HP -= get_room()[room_position[0]+y][room_position[1]+x].damage
 		get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with the tile its standing on rn

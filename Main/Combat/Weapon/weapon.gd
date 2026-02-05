@@ -43,6 +43,8 @@ func updateText() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
+		if event.is_echo():
+			return
 		match event.keycode:
 				KEY_UP:
 					self.show()
