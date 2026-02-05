@@ -39,7 +39,7 @@ func add_detail(body):
 						if tile.get_body()[y][x] == " " and rng.randi_range(1, 100) <= 1:
 							tile.get_body()[y][x] = details.pick_random()
 
-func instantiate_room(room, coords = []):
+func instantiate_room(room, parent, coords = []):
 	var out = []
 	for y in range(room.size()):
 		var row = []
@@ -94,14 +94,15 @@ func instantiate_room(room, coords = []):
 						enemy.room_position = [y,x]
 						enemy.map_position = coords.duplicate()
 						enemy.tile_below = cell
-						enemy.spawn_hitbox()
+						enemy.spawn_hitbox(parent)
+						enemy.disable_hit()
 						row.append(enemy)
 					else:
 						row.append(cell)
 			out.append(row)
 	return out
 
-func gen_room(choice, sides: Array, coords : Array = []):#when doing treasure, sides does not matter
+func gen_room(choice, parent, sides: Array, coords : Array = []):#when doing treasure, sides does not matter
 	#when doing shop, sides has to be either ["E"], ["W"] or ["E","W"]
 	#when doing 2x2, sides has to be in the form ["SE","WN"] etc, 
 	#first letter is the wall, 2nd is where on the wall
@@ -118,7 +119,7 @@ func gen_room(choice, sides: Array, coords : Array = []):#when doing treasure, s
 								if temp2[y][x] is Basic_types:
 									temp2[y][x] = temp2[y][x].copy()
 					body = temp2
-					body = instantiate_room(body, coords)
+					body = instantiate_room(body, parent, coords)
 					add_detail(body)
 					return body
 			return "hahaha"
@@ -136,7 +137,7 @@ func gen_room(choice, sides: Array, coords : Array = []):#when doing treasure, s
 				body[7][16] = 1
 			if sides.has("W"):
 				body[7][0] = 1
-			body = instantiate_room(body, coords)
+			body = instantiate_room(body,parent, coords)
 			add_detail(body)
 			return body
 		3: #empty 1X1
@@ -155,7 +156,7 @@ func gen_room(choice, sides: Array, coords : Array = []):#when doing treasure, s
 				body[0][8] = 1
 			if sides.has("S"):
 				body[14][8] = 1
-			body = instantiate_room(body, coords)
+			body = instantiate_room(body,parent, coords)
 			add_detail(body)
 			return body
 		4: #empty 2x2

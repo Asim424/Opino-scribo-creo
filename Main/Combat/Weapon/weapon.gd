@@ -8,7 +8,7 @@ class_name Weapon
 @export var playerParent : RichTextLabel
 @export var AnimPlayer : AnimationPlayer
 @export var CraftingMenu : Crafting
-
+var damage = 0
 var weaponInactive : bool = true
 
 # Called when the node enters the scene tree for the first time.
@@ -48,28 +48,37 @@ func _input(event: InputEvent) -> void:
 					self.show()
 					weaponInactive = false
 					AnimPlayer.play("SwingUP")
+					hitBox.set_deferred("disabled",false)
+					hitBoxBounds.set_deferred("disabled",false)
 
 				KEY_DOWN:
 					self.show()
 					weaponInactive = false
 					AnimPlayer.play("SwingDOWN")
+					hitBox.set_deferred("disabled",false)
+					hitBoxBounds.set_deferred("disabled",false)
 
 				KEY_LEFT:
 					self.show()
 					weaponInactive = false
 					AnimPlayer.play("SwingLEFT")
+					hitBox.set_deferred("disabled",false)
+					hitBoxBounds.set_deferred("disabled",false)
 
 				KEY_RIGHT:
 					self.show()
 					weaponInactive = false
 					AnimPlayer.play("SwingRIGHT")
+					hitBox.set_deferred("disabled",false)
+					hitBoxBounds.set_deferred("disabled",false)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if AnimPlayer.is_playing() == false:
+		hitBox.set_deferred("disabled",true)
+		hitBoxBounds.set_deferred("disabled",true)
 		weaponInactive = true
 		self.hide()
-	print(playerParent.position.y)
 	self.position.x = playerParent.position.x + (playerParent.room_position[1]+.5)*13*3
 	self.position.y = playerParent.position.y + (playerParent.room_position[0]+.75)*13*3

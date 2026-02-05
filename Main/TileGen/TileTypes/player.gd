@@ -4,6 +4,7 @@ class_name player
 var HP = 10
 var max_HP = 10
 var room_position = [7,8]
+var coins = 0
 var map_position = [0,0]
 var body = [["╔","═","/","\\","═","╗"], #player character 
 	 ["║","@","_","_","@","║"],
@@ -13,6 +14,9 @@ var curr_weapon
 var map = []
 var map_generator = map_gen.new()
 var weapon = [[]]
+var father = self
+
+@export var crafting : Crafting
 
 func get_body():
 	return body
@@ -24,21 +28,28 @@ func get_room() -> Array:
 	return map[map_position[1]][map_position[0]]
 
 func room_clear():
-	#for i in range(map[map_position[1]][map_position[0]].size()):
-		#for j in range(map[map_position[1]][map_position[0]][i].size()):
-			#if map[map_position[1]][map_position[0]][i][j] is basicE:
-				#return false
+	for i in range(map[map_position[1]][map_position[0]].size()):
+		for j in range(map[map_position[1]][map_position[0]][i].size()):
+			if map[map_position[1]][map_position[0]][i][j] is basicE:
+				return false
 	return true
 
+func enemies_disable():
+	for i in range(map[map_position[1]][map_position[0]].size()):
+			for j in range(map[map_position[1]][map_position[0]][i].size()):
+				if map[map_position[1]][map_position[0]][i][j] is basicE:
+					map[map_position[1]][map_position[0]][i][j].disable_hit()
 func move_enemies():
 	for i in range(map[map_position[1]][map_position[0]].size()):
 		for j in range(map[map_position[1]][map_position[0]][i].size()):
 			if map[map_position[1]][map_position[0]][i][j] is basicE:
 				map[map_position[1]][map_position[0]][i][j].map = map
 				map[map_position[1]][map_position[0]][i][j].move_enemies(room_position)
+				
 	for i in range(map[map_position[1]][map_position[0]].size()):
 		for j in range(map[map_position[1]][map_position[0]][i].size()):
 			if map[map_position[1]][map_position[0]][i][j] is basicE:
+				map[map_position[1]][map_position[0]][i][j].move_hitbox()
 				map[map_position[1]][map_position[0]][i][j].alr_moved = false
 
 func move(direction : String):
@@ -63,12 +74,18 @@ func move(direction : String):
 		if room_clear():
 			var temp  = get_room()[room_position[0]+y][room_position[1]+x].copy()	#store door
 			get_room()[room_position[0]][room_position[1]] = tile_below		#replace player with tile it was standing on
+			enemies_disable()
 			map_position = temp.map_coordinates		#door points to the new position for the player
 			room_position = temp.room_coordinates
 			tile_below = get_room()[room_position[0]][room_position[1]]		#store next tile
 			get_room()[room_position[0]][room_position[1]] = self		#move player
 			print_room()	#then show the room
 			return
+	elif get_room()[room_position[0]+y][room_position[1]+x] is treasure:
+		crafting.Inventory[get_room()[room_position[0]+y][room_position[1]+x].contents.to_upper()] += 1
+		get_room()[room_position[0]+y][room_position[1]+x] = Basic_types.new()
+		get_room()[room_position[0]+y][room_position[1]+x].set_body(2)
+			
 	move_enemies()
 	print_room()	#then show the room
 	print_map()
@@ -85,6 +102,10 @@ func move(direction : String):
 	#delete this player object in case it is still active to avoid memory leak
 
 func attack(direction : String):
+	move_enemies()
+	
+	print_room()	#then show the room
+	#print_map()
 	pass
 	#spawn new text box with the hitboxes
 	#rotate based on direction input
@@ -93,7 +114,7 @@ func attack(direction : String):
 	
 # Called when the node enters the scene tree for the first time.
 func _init() -> void:
-	map_generator.generate_map()
+	map_generator.generate_map(father)
 	map = map_generator.map.duplicate(true)
 	map_position = map_generator.player_map.duplicate()
 	tile_below = map[map_position[1]][map_position[0]][7][8]

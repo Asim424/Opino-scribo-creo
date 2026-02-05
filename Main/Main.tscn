@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://dismfahxdsqkk" path="res://addons/GodotASCIIToolKit/Resources/Godot/Themes/ascii_label_theme.tres" id="1_83ytx"]
 [ext_resource type="Script" uid="uid://d0m55i184kiur" path="res://Main/TileGen/TileTypes/player.gd" id="2_amygn"]
 [ext_resource type="PackedScene" uid="uid://damki1brhvp1w" path="res://Main/Combat/Weapon/weapon.tscn" id="3_amygn"]
+[ext_resource type="Script" uid="uid://txytp8yjsjyg" path="res://Main/Combat/Enemies/Basic.gd" id="4_hh5pf"]
 [ext_resource type="PackedScene" uid="uid://brldrj2ucyctu" path="res://crafting/CraftingMenu.tscn" id="4_ps1la"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0e48y"]
@@ -33,7 +34,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control" unique_id=2042075458]
+[node name="Node" type="Node" parent="Control" unique_id=1202555598 node_paths=PackedStringArray("room")]
+script = ExtResource("4_hh5pf")
+room = NodePath("../RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control" unique_id=2042075458 node_paths=PackedStringArray("crafting")]
 clip_contents = false
 layout_mode = 1
 anchors_preset = 8
@@ -58,6 +63,7 @@ text = "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 fit_content = true
 autowrap_mode = 0
 script = ExtResource("2_amygn")
+crafting = NodePath("../../CraftingMenu")
 
 [node name="Weapon" parent="." unique_id=1379525267 node_paths=PackedStringArray("playerParent", "CraftingMenu") instance=ExtResource("3_amygn")]
 playerParent = NodePath("../Control/RichTextLabel")

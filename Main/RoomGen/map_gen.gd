@@ -16,7 +16,7 @@ var player_map
 func get_map():
 	return map
 
-func generate_map():
+func generate_map(parent):
 	map[0][0] = ["START"]
 	var last_location = [0,0]
 	while total_rooms > 0:
@@ -95,7 +95,7 @@ func generate_map():
 			temp.resize(x+1)
 			temp.fill(" ")
 			treasure_loc = [len(map),x]
-			temp[-1] = room_generator.gen_room(1,[],[x,len(map)])
+			temp[-1] = room_generator.gen_room(1,parent, [],[x,len(map)])
 			map.append(temp)
 
 			
@@ -130,7 +130,7 @@ func generate_map():
 		if map[longest[0]][-1] is Array:
 			map[longest[0]].append(" ")
 		shop_loc = [map[longest[0]].size()-1,longest[0]]
-		map[longest[0]][-1] = room_generator.gen_room(2,["W"],shop_loc)
+		map[longest[0]][-1] = room_generator.gen_room(2,parent,["W"],shop_loc)
 				
 	for i in range(len(map)):
 		for j in range(len(map[i])):
@@ -155,7 +155,7 @@ func generate_map():
 				if map[i][j+1] is Array:
 					entrances.append("E")
 			if map[i][j] is Array and [i,j] != treasure_loc and [j,i] != shop_loc:
-				map[i][j] = room_generator.gen_room(3,entrances, [j,i]).duplicate(true)
+				map[i][j] = room_generator.gen_room(3,parent,entrances, [j,i]).duplicate(true)
 	print("player makes issues")
 	player_map = start_loc.duplicate()
 

@@ -300,4 +300,5 @@ func Damage_Score(words):
 	for word in get_letters_on_board():
 		for char in word:
 			score += letter_values[char]
+	Weapon.damage = score
 	return score

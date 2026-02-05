@@ -1,4 +1,4 @@
-extends RichTextLabel
+extends Node
 
 class_name basicE
 var HP = 10
@@ -6,12 +6,13 @@ var max_HP = 10
 var room_position = [7,8]
 var map_position = [0,0]
 var alr_moved = false
-var hitBox : Area2D
-var collision : CollisionShape2D
+var area
+var col : CollisionShape2D
+var parent
 var body = [["[color=green]┌","┬","┬","┬","┬","┐[/color]"], #enemy character 
 	 ["[color=green]├","┼","\\","┼","/","┤[/color]"],
 	 ["[color=green]└","┴","┴","┴","┴","┘[/color]"]]
-	
+@export var room : RichTextLabel
 	
 var tile_below
 var curr_weapon
@@ -27,18 +28,53 @@ func get_body():
 func get_map() -> Array:
 	return map
 
-func spawn_hitbox() -> void:
-	hitBox = Area2D.new()
-	collision = CollisionShape2D.new()
-	hitBox.add_child(collision)
-	collision.shape = RectangleShape2D.new()
-	collision.shape.size.x = 13*6
-	collision.shape.size.y = 13*3
+func spawn_hitbox(dad) -> void:
+	area = Area2D.new()
+	parent = dad
+	parent.add_child(area)
+
+	col = CollisionShape2D.new()
+	area.add_child(col)
+
+	var shape = RectangleShape2D.new()
+	shape.size = Vector2(13 * 3, 13 * 3)
+	col.shape = shape
+	area.area_entered.connect(_on_area_entered)
 	move_hitbox()
 
+func _on_area_entered(body: Node) -> void:
+	if body.get_parent().get_parent() is Weapon:
+		take_damage(body.get_parent().get_parent().damage)
+
+func take_damage(damage):
+	HP -=  damage
+	if HP <= 0:
+		get_room()[room_position[0]][room_position[1]] = tile_below
+		for i in area.get_children():
+			i.queue_free()
+		area.queue_free()
+		self.queue_free()
+		parent.print_room()
+		parent.coins += 1
+		
+	
+
+func disable_hit():
+	col.set_deferred("disabled",true)
+	area.set_deferred("disabled",true)
+	area.position.x = 1000
+	area.position.y = 1000
+
+func enable_hit():
+	col.set_deferred("disabled",false)
+	area.set_deferred("disabled",false)
+
+
 func move_hitbox():
-	hitBox.position.x = 244.5 + (room_position[1]+.5)*13*3
-	hitBox.position.y = 25 + (room_position[0]+.75)*13*3
+	area.position.x = (room_position[1]+.5)*13*3
+	area.position.y = (room_position[0]+.75)*13*3
+	enable_hit()
+
 
 
 func move_enemies(player_pos : Array):
