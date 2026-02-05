@@ -72,6 +72,11 @@ func instantiate_room(room, parent, coords = []):
 						row.append(Treasure)
 					elif cell == 3:
 						var Breakable = breakable.new()
+						Breakable.room_position = [y,x]
+						Breakable.map_position = coords.duplicate()
+
+						Breakable.spawn_hitbox(parent)
+						Breakable.disable_hit()
 						row.append(Breakable)
 						
 					elif cell == 4:
