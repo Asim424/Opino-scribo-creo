@@ -45,6 +45,9 @@ func move_enemies():
 			if map[map_position[1]][map_position[0]][i][j] is basicE:
 				map[map_position[1]][map_position[0]][i][j].map = map
 				map[map_position[1]][map_position[0]][i][j].move_enemies(room_position)
+			elif map[map_position[1]][map_position[0]][i][j] is breakable:
+				map[map_position[1]][map_position[0]][i][j].map = map
+				map[map_position[1]][map_position[0]][i][j].move_hitbox()
 				
 	for i in range(map[map_position[1]][map_position[0]].size()):
 		for j in range(map[map_position[1]][map_position[0]][i].size()):
