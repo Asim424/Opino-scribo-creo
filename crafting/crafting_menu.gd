@@ -222,7 +222,7 @@ func _on_gui_input(event: InputEvent) -> void:
 				PlayerBox.set_caret_column(PlayerBox.get_caret_column()-1)
 			KEY_RIGHT:
 				PlayerBox.set_caret_column(PlayerBox.get_caret_column()+1)
-		if event.keycode == KEY_SPACE and player.coins >= 0*int(PlayerBox.get_caret_column()/3):
+		if event.keycode == KEY_SPACE and player.coins >= 15*int(PlayerBox.get_caret_column()/3):
 			print(Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)])
 			if Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)] == L:
 				Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)] = U
