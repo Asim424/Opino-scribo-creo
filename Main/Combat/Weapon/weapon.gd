@@ -37,8 +37,8 @@ func updateText() -> void:
 	WeaponSprite.text = text
 	hitBoxBounds.shape.size.x = longestLine.length()*16
 	hitBoxBounds.shape.size.y = lines*16
-	hitBox.position.x = longestLine.length()*12
-	hitBox.position.y = lines*12
+	hitBox.position.x = longestLine.length()*8
+	hitBox.position.y = lines*8
 	print(longestLine + " : " + str(lines))
 
 func _input(event: InputEvent) -> void:

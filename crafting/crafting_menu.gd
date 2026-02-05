@@ -108,16 +108,23 @@ func _ready() -> void:
 	LoadInv()
 
 func reload_text():
-	Text = []
-	for major_row in Unlocked:
-		for row_idx in range(3):
-			var full_line = [] 
-			
-			for block in major_row:
-				for char in block[row_idx]:
-					full_line.append(char)
-			
-			Text.append(full_line)
+	for i in range(Unlocked.size()): # Grid Row (0 to 2)
+		for m in range(3): # Tile Row (0 to 2)
+			for j in range(Unlocked[i].size()): # Grid Column (0 to 3)
+				for n in range(3): # Tile Column (0 to 2)
+					# Build the physical line by appending characters horizontally
+					if Unlocked[i][j] == U:
+						if (Text[i*3+m][j*3+n] == '█' 
+						or Text[i*3+m][j*3+n] == '░' 
+						or Text[i*3+m][j*3+n] == '∩'):
+							Text[i*3+m][j*3+n] = " "
+	var fullText = ""
+	for row in Text:
+		var currentLine = ""
+		for col in row:
+			currentLine += col
+		fullText += currentLine + "\n"
+	PlayerBox.text = fullText
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -215,7 +222,7 @@ func _on_gui_input(event: InputEvent) -> void:
 				PlayerBox.set_caret_column(PlayerBox.get_caret_column()-1)
 			KEY_RIGHT:
 				PlayerBox.set_caret_column(PlayerBox.get_caret_column()+1)
-		if event.keycode == KEY_SPACE and player.coins >= 15*int(PlayerBox.get_caret_column()/3):
+		if event.keycode == KEY_SPACE and player.coins >= 0*int(PlayerBox.get_caret_column()/3):
 			print(Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)])
 			if Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)] == L:
 				Unlocked[int(PlayerBox.get_caret_line()/3)][int(PlayerBox.get_caret_column()/3)] = U
