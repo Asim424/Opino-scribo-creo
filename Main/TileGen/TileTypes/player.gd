@@ -23,6 +23,13 @@ func get_map() -> Array:
 func get_room() -> Array:
 	return map[map_position[1]][map_position[0]]
 
+func move_enemies():
+	for i in range(map[map_position[1]][map_position[0]].size()):
+		for j in range(map[map_position[1]][map_position[0]][i].size()):
+			if map[map_position[1]][map_position[0]][i][j] is basicE:
+				map[map_position[1]][map_position[0]][i][j].map = map
+				map[map_position[1]][map_position[0]][i][j].move_enemies(room_position)
+
 func move(direction : String):
 	var x = 0
 	var y = 0
@@ -48,8 +55,11 @@ func move(direction : String):
 		room_position = temp.room_coordinates
 		tile_below = get_room()[room_position[0]][room_position[1]]		#store next tile
 		get_room()[room_position[0]][room_position[1]] = self		#move player
-	
+		print_room()	#then show the room
+		return
+	move_enemies()
 	print_room()	#then show the room
+	print_map()
 	
 	
 	#if tile_below is door:

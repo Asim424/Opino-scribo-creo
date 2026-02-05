@@ -28,6 +28,7 @@ func grab_tile(position:Array, direction:String):
 func get_room():
 	return body
 
+
 func add_detail(body):
 	var details = ["#","*","+","_","-","\""] #list of details to randomly place on floor tiles
 	for tile_row in body:
@@ -35,7 +36,7 @@ func add_detail(body):
 			for y in range(3):
 				for x in range(6):
 					if tile is Basic_types:
-						if tile.get_body()[y][x] == " " and rng.randi_range(1, 100) <= 4:
+						if tile.get_body()[y][x] == " " and rng.randi_range(1, 100) <= 1:
 							tile.get_body()[y][x] = details.pick_random()
 
 func instantiate_room(room, coords = []):
@@ -87,7 +88,15 @@ func instantiate_room(room, coords = []):
 						Shop.set_inside()
 						row.append(Shop)
 				else:
-					row.append(cell)
+					var temp = randi_range(0,100)
+					if temp <= 2 and cell.type in [2,3,4,6]:
+						var enemy = basicE.new()
+						enemy.room_position = [y,x]
+						enemy.map_position = coords.duplicate()
+						enemy.tile_below = cell
+						row.append(enemy)
+					else:
+						row.append(cell)
 			out.append(row)
 	return out
 
